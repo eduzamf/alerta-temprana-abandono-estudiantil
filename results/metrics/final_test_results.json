@@ -1,0 +1,98 @@
+{
+  "stage": "final_test",
+  "evaluated_at_utc": "2026-10-21T17:54:32.016884+00:00",
+  "protocol": {
+    "version": "1.0",
+    "model": "LR_base",
+    "parameters": {
+      "C": 1.0,
+      "class_weight": "balanced",
+      "max_iter": 3000,
+      "random_state": 42
+    },
+    "numeric_degree": 1,
+    "calibration": "none",
+    "ranking_fraction": 0.2,
+    "primary_metric": "f1_macro",
+    "primary_target": 0.6,
+    "test_order": "historical train_test_split random_state=42",
+    "post_test_tuning": false
+  },
+  "model_sha256": "028b9d7071eaa9549b2cfb64f177f34d2aaf5aeb645eb1f7b4af63b746d8c5f1",
+  "dataset_sha256": "3ef126de5cefff26eb11fbb4237f1a1401cb64b488e2f1d598c23cedeb4c45ae",
+  "partitions_sha256": "421699f3d13e2f4d0096ed829ac971ee29ee7f694d300730df08414c2d39da14",
+  "test_rows": 885,
+  "training_rows": 3539,
+  "test_scored": true,
+  "model_refit": false,
+  "model_state_unchanged": true,
+  "prediction_source_sha256": "6d220e2d76f36ed402bdc87895d1a39fbc9f3b5dd4bc6e6a6ce17de979253b29",
+  "metrics": {
+    "f1_macro": 0.4936645007304013,
+    "accuracy": 0.5288135593220339,
+    "log_loss": 0.9837269607316688,
+    "recall_dropout": 0.5035211267605634,
+    "recall20": 0.4014084507042254
+  },
+  "class_report": {
+    "Dropout": {
+      "precision": 0.5521235521235521,
+      "recall": 0.5035211267605634,
+      "f1-score": 0.5267034990791897,
+      "support": 284.0
+    },
+    "Enrolled": {
+      "precision": 0.2777777777777778,
+      "recall": 0.4088050314465409,
+      "f1-score": 0.33078880407124683,
+      "support": 159.0
+    },
+    "Graduate": {
+      "precision": 0.6632653061224489,
+      "recall": 0.5882352941176471,
+      "f1-score": 0.6235011990407674,
+      "support": 442.0
+    },
+    "accuracy": 0.5288135593220339,
+    "macro avg": {
+      "precision": 0.4977222120079263,
+      "recall": 0.500187150774917,
+      "f1-score": 0.4936645007304013,
+      "support": 885.0
+    },
+    "weighted avg": {
+      "precision": 0.5583423963569242,
+      "recall": 0.5288135593220339,
+      "f1-score": 0.5398494277534884,
+      "support": 885.0
+    }
+  },
+  "confusion_matrix": [
+    [
+      143,
+      67,
+      74
+    ],
+    [
+      36,
+      65,
+      58
+    ],
+    [
+      80,
+      102,
+      260
+    ]
+  ],
+  "ranking": {
+    "selected": 177,
+    "dropout_total": 284,
+    "dropout_detected": 114,
+    "dropout_missed": 170,
+    "selected_other": 63,
+    "random_expected_coverage": 0.2,
+    "random_expected_detected": 56.8
+  },
+  "target_met": false,
+  "predictions_sha256": "3d4ba3b6d02b0c34eeb5cd76f70db41c8384e2a76dbda9c4832db61a133a4599"
+}

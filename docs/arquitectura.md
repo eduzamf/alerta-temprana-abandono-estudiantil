@@ -118,11 +118,16 @@ documentan en [la decision final](seleccion_modelo.md).
 
 ## Integracion final pendiente
 
+La evaluacion del artefacto fijo se implementa en `src/final_evaluation.py`.
+Utiliza la reserva historica sin reajustar el pipeline. Conserva predicciones
+y recalcula metricas desde esos archivos en ejecuciones posteriores.
+Los resultados se presentan en [evaluacion final](evaluacion_final.md).
+
 El clasificador seleccionado y este transformador se mantendran en un Pipeline para
 que cada ajuste interno de hiperparametros vuelva a aprender el preprocesamiento
 solo con su entrenamiento. No se hara validacion cruzada sobre matrices ajustadas
 con todo desarrollo. El entrenamiento definitivo se realizara despues de fijar
-el modelo y protocolo, y la reserva se evaluara sin reajustar con ella.
+el modelo y protocolo; esa fase ya se ejecuto y la reserva se evaluo sin reajustar con ella.
 
 Las versiones verificadas se fijan en [requirements.txt](../requirements.txt).
 La persistencia se implementa en `src/finalize.py`: entrena exclusivamente en

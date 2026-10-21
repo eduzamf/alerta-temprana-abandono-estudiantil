@@ -6,6 +6,9 @@ escalado, one-hot y clasificador LR_base. Se entrena exclusivamente con las
 versiones, indices, huellas y comprobacion de serializacion.
 
 La seleccion se justifica en [la decision tecnica](../docs/seleccion_modelo.md).
+La [evaluacion final](../docs/evaluacion_final.md) registra F1 macro 0,49366
+en 885 casos de prueba. La meta de 0,60 no se alcanza. El artefacto conserva
+la misma huella anterior a la prueba.
 El artefacto no es un sistema institucional validado. Sus puntuaciones no
 estan calibradas y requiere los controles de entrada descritos en robustez.
 

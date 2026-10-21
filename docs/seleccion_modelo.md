@@ -72,6 +72,10 @@ temporal, causal ni transferencia institucional a Ecuador.
 
 ## Evidencia
 
+La prueba posterior se presenta en [evaluacion final](evaluacion_final.md).
+El texto del protocolo anterior conserva la decision fijada antes de conocer
+sus resultados. No se ha cambiado la configuracion seleccionada.
+
 El artefacto se entreno y verifico con las 3.539 filas de desarrollo, sin
 advertencias de entrenamiento. La serializacion conserva exactamente las
 predicciones. [Modelo y metadatos](../models/README.md). Esta comprobacion no

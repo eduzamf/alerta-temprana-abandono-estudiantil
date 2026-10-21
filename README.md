@@ -4,7 +4,7 @@ Prototipo académico de inteligencia artificial para identificar estudiantes que
 
 **Autor:** Carlos Zambrano Figueroa. **Grupo:** 11, trabajo individual.
 
-**Estado:** regresión logística seleccionada y entrenada con desarrollo, con artefacto verificable. Se incluyen experimentos, optimización, subgrupos y robustez. La reserva final no se ha evaluado; el prototipo no constituye una aplicación institucional validada.
+**Estado:** regresión logística entrenada y evaluada en los 885 casos de prueba final. F1 macro: **0,49366**; meta de 0,60 **no alcanzada**. Se incluyen experimentos, optimización, subgrupos y robustez. El prototipo no constituye una aplicación institucional validada.
 
 ## Contenido
 
@@ -36,7 +36,7 @@ results/metrics/       Métricas verificables
 results/reports/       Reportes derivados
 ```
 
-Los archivos `.gitkeep` permiten registrar carpetas inicialmente vacías. Los experimentos y el artefacto seleccionado están implementados, con 70 pruebas automatizadas. Los notebooks 01 a 04 están ejecutados; la evaluación final e interfaz no forman parte de esta versión.
+Los archivos `.gitkeep` permiten registrar carpetas inicialmente vacías. Los experimentos, el artefacto seleccionado y la evaluación final están implementados, con 76 pruebas automatizadas. Los cinco notebooks están ejecutados; la interfaz no forma parte de esta versión.
 
 ## Documentación
 
@@ -46,6 +46,7 @@ Los archivos `.gitkeep` permiten registrar carpetas inicialmente vacías. Los ex
 - [Optimización](docs/optimizacion.md)
 - [Robustez](docs/robustez.md)
 - [Selección del modelo y protocolo final](docs/seleccion_modelo.md)
+- [Evaluación final](docs/evaluacion_final.md)
 - [Consideraciones éticas](docs/consideraciones_eticas.md)
 - [Manual de usuario](docs/manual_usuario.md)
 
@@ -57,7 +58,9 @@ La auditoría confirma 4.424 filas: 3.539 de desarrollo y 885 de reserva; se con
 
 El [análisis exploratorio](docs/analisis_datos.md) incluye siete figuras y tablas sobre clases, distribuciones, valores atípicos, correlaciones, categorías y subgrupos. Utiliza únicamente desarrollo. La representación demográfica no se presenta como una evaluación de equidad del modelo.
 
-Los modelos base reproducen los resultados históricos: F1 macro medio de 0,51584 para regresión logística y 0,51996 para Random Forest, frente a 0,22201 de Dummy prior. Son cifras de validación, no de prueba final. [Resultados, cobertura, diagnóstico y gráficos](results/reports/baseline_report.md). La reserva permanece sin evaluar. Se seleccionó LR original por el compromiso documentado entre complejidad, rendimiento y trazabilidad; no por obtener el mayor F1.
+Los modelos base reproducen los resultados históricos: F1 macro medio de 0,51584 para regresión logística y 0,51996 para Random Forest, frente a 0,22201 de Dummy prior. Son cifras de validación, no de prueba final. [Resultados, cobertura, diagnóstico y gráficos](results/reports/baseline_report.md). Se seleccionó LR original por el compromiso documentado entre complejidad, rendimiento y trazabilidad; no por obtener el mayor F1.
+
+En la [prueba final](docs/evaluacion_final.md), LR obtiene F1 macro 0,49366 y accuracy 0,52881. El ranking prioriza 177 casos e incluye 114 de 284 abandonos (40,14%). Se conservan 170 abandonos fuera del cupo. No se ajustó el modelo después de observar el resultado. Los documentos de experimentos anteriores describen el estado de la reserva en esas etapas; sus métricas siguen siendo de desarrollo.
 
 El [artefacto entrenado](models/README.md) conserva el pipeline completo y metadatos verificables. Se ajustó exclusivamente con las 3.539 filas de desarrollo; sus puntuaciones no están calibradas.
 
@@ -67,7 +70,7 @@ Las [pruebas de robustez](docs/robustez.md) incluyen nueve escenarios y 85 evalu
 
 La [auditoría por subgrupos](results/reports/fairness_report.md) analiza la regresión original con conteos e intervalos de Wilson. Incluye género, edad, nacionalidad, necesidades especiales, beca y deuda. No certifica equidad ni modifica el modelo. Los conteos agrupados se distinguen de las medias históricas por fold.
 
-La [optimización anidada](docs/optimizacion.md) limita el sobreajuste de Random Forest y evalúa relaciones cuadráticas en la regresión. Sus F1 de validación son 0,51792 y 0,51777, respectivamente: no alcanzan 0,60 ni demuestran una mejora concluyente frente a las bases. Se verifican 7.078 predicciones externas; la reserva sigue sin evaluar.
+La [optimización anidada](docs/optimizacion.md) limita el sobreajuste de Random Forest y evalúa relaciones cuadráticas en la regresión. Sus F1 de validación son 0,51792 y 0,51777, respectivamente: no alcanzan 0,60 ni demuestran una mejora concluyente frente a las bases. Se verifican 7.078 predicciones externas a los entrenamientos de cada fold; la reserva no intervino en esa optimización.
 
 La auditoría se verificó con Python 3.11.8 y las versiones de `requirements.txt`. Desde la raíz del repositorio:
 
@@ -86,14 +89,15 @@ python -m venv .venv
 .\.venv\Scripts\python.exe -m src.fairness
 .\.venv\Scripts\python.exe -m src.stress
 .\.venv\Scripts\python.exe -m src.finalize
+.\.venv\Scripts\python.exe -m src.final_evaluation
 .\.venv\Scripts\python.exe -m unittest discover -s tests -v
 ```
 
 En otros sistemas usar `.venv/bin/python`. La auditoría genera `results/metrics/data_audit.json`. El EDA genera `results/metrics/eda.json`, siete figuras y `docs/analisis_datos.md`; editar la plantilla en `src/eda.py` si se modifica esa documentación. La auditoría de preprocesamiento genera `results/metrics/preprocessing_audit.json`. El entrenamiento guarda predicciones OOF, registros y métricas en `results/metrics/baseline_*`; el reporte y sus tres gráficos se generan con `src.baseline_report`.
 
-La optimización genera `results/metrics/optimization_*`; `src.optimization_report` genera cinco figuras y la sección de resultados de `docs/optimizacion.md`. La auditoría genera `results/metrics/fairness_*` y su reporte. La robustez genera `results/metrics/stress_*`, un gráfico y los resultados en `docs/robustez.md`. Las 70 pruebas cubren también el artefacto congelado; no certifican la interfaz ni la validez institucional. Los resultados están incluidos o se regeneran con `src.train`, `src.optimize`, `src.fairness` y `src.stress`. `src.finalize` entrena si no hay artefacto y verifica el existente sin sobrescribirlo.
+La optimización genera `results/metrics/optimization_*`; `src.optimization_report` genera cinco figuras y la sección de resultados de `docs/optimizacion.md`. La auditoría genera `results/metrics/fairness_*` y su reporte. La robustez genera `results/metrics/stress_*`, un gráfico y los resultados en `docs/robustez.md`. Las 76 pruebas cubren también el artefacto congelado y la evaluación final; no certifican la interfaz ni la validez institucional. Los resultados de desarrollo se regeneran con `src.train`, `src.optimize`, `src.fairness` y `src.stress`. `src.finalize` verifica el modelo existente sin sobrescribirlo. `src.final_evaluation` verifica la prueba guardada; no vuelve a predecir si ya existe.
 
-Para ejecutar un notebook sin una interfaz Jupyter, desde la raíz del repositorio (cambiar el nombre por `02_preprocesamiento.ipynb`, `03_modelado.ipynb` o `04_optimizacion.ipynb` para los siguientes). El notebook 04 verifica resultados guardados por defecto; permite repetir la búsqueda con `RETRAIN=True`:
+Para ejecutar un notebook sin una interfaz Jupyter, desde la raíz del repositorio, cambiar el nombre por cualquiera de los cinco notebooks. El 04 verifica resultados guardados por defecto; el 05 verifica la prueba final sin volver a inferir ni entrenar:
 
 ```powershell
 .\.venv\Scripts\python.exe -c "import nbformat; from nbclient import NotebookClient; p='notebooks/01_exploracion.ipynb'; n=nbformat.read(p, as_version=4); NotebookClient(n, timeout=180, kernel_name='python3').execute(); nbformat.write(n,p)"
