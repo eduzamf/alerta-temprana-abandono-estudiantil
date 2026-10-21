@@ -4,7 +4,7 @@ Prototipo académico de inteligencia artificial para identificar estudiantes que
 
 **Autor:** Carlos Zambrano Figueroa. **Grupo:** 11, trabajo individual.
 
-**Estado:** datos, EDA, preprocesamiento, modelos base, optimización anidada y auditoría por subgrupos de la regresión de referencia ejecutados. El repositorio contiene experimentos reproducibles, no una aplicación institucional validada ni un modelo final seleccionado.
+**Estado:** datos, EDA, preprocesamiento, modelos base, optimización anidada, auditoría por subgrupos y pruebas de robustez de la regresión de referencia ejecutados. El repositorio contiene experimentos reproducibles, no una aplicación institucional validada ni un modelo final seleccionado.
 
 ## Contenido
 
@@ -36,7 +36,7 @@ results/metrics/       Métricas verificables
 results/reports/       Reportes derivados
 ```
 
-Los archivos `.gitkeep` permiten registrar carpetas inicialmente vacías. La carga, el EDA, el preprocesamiento, los modelos base, la optimización y la auditoría por subgrupos están implementados, con 58 pruebas automatizadas. Los notebooks 01 a 04 están ejecutados; la evaluación final e interfaz no forman parte de esta versión.
+Los archivos `.gitkeep` permiten registrar carpetas inicialmente vacías. La carga, el EDA, el preprocesamiento, los modelos base, la optimización, la auditoría por subgrupos y la robustez están implementados, con 66 pruebas automatizadas. Los notebooks 01 a 04 están ejecutados; la evaluación final e interfaz no forman parte de esta versión.
 
 ## Documentación
 
@@ -44,6 +44,7 @@ Los archivos `.gitkeep` permiten registrar carpetas inicialmente vacías. La car
 - [Análisis de datos](docs/analisis_datos.md)
 - [Arquitectura](docs/arquitectura.md)
 - [Optimización](docs/optimizacion.md)
+- [Robustez](docs/robustez.md)
 - [Consideraciones éticas](docs/consideraciones_eticas.md)
 - [Manual de usuario](docs/manual_usuario.md)
 
@@ -58,6 +59,8 @@ El [análisis exploratorio](docs/analisis_datos.md) incluye siete figuras y tabl
 Los modelos base reproducen los resultados históricos: F1 macro medio de 0,51584 para regresión logística y 0,51996 para Random Forest, frente a 0,22201 de Dummy prior. Son cifras de validación, no de prueba final. [Resultados, cobertura, diagnóstico y gráficos](results/reports/baseline_report.md). La reserva permanece sin evaluar; no se ha seleccionado el modelo final.
 
 ## Instalación y pruebas
+
+Las [pruebas de robustez](docs/robustez.md) incluyen nueve escenarios y 85 evaluaciones de validación. La regresión excede la tolerancia de caída de F1 al ocultar cerca del 30% de las celdas, usar carreras desconocidas o desplazar las notas. No se modificaron las tolerancias después de observar resultados.
 
 La [auditoría por subgrupos](results/reports/fairness_report.md) analiza la regresión original con conteos e intervalos de Wilson. Incluye género, edad, nacionalidad, necesidades especiales, beca y deuda. No certifica equidad ni modifica el modelo. Los conteos agrupados se distinguen de las medias históricas por fold.
 
@@ -78,12 +81,13 @@ python -m venv .venv
 .\.venv\Scripts\python.exe -c "from src.optimize import verify; print(verify())"
 .\.venv\Scripts\python.exe -m src.optimization_report
 .\.venv\Scripts\python.exe -m src.fairness
+.\.venv\Scripts\python.exe -m src.stress
 .\.venv\Scripts\python.exe -m unittest discover -s tests -v
 ```
 
 En otros sistemas usar `.venv/bin/python`. La auditoría genera `results/metrics/data_audit.json`. El EDA genera `results/metrics/eda.json`, siete figuras y `docs/analisis_datos.md`; editar la plantilla en `src/eda.py` si se modifica esa documentación. La auditoría de preprocesamiento genera `results/metrics/preprocessing_audit.json`. El entrenamiento guarda predicciones OOF, registros y métricas en `results/metrics/baseline_*`; el reporte y sus tres gráficos se generan con `src.baseline_report`.
 
-La optimización genera `results/metrics/optimization_*`; `src.optimization_report` genera cinco figuras y la sección de resultados de `docs/optimizacion.md`. La auditoría genera `results/metrics/fairness_*` y su reporte. Las 58 pruebas cubren datos, transformaciones, métricas, modelos, selección anidada, conteos e intervalos; no certifican la interfaz ni la validez institucional. Las pruebas de resultados guardados requieren esos archivos, incluidos en el repositorio o regenerados con `src.train`, `src.optimize` y `src.fairness`.
+La optimización genera `results/metrics/optimization_*`; `src.optimization_report` genera cinco figuras y la sección de resultados de `docs/optimizacion.md`. La auditoría genera `results/metrics/fairness_*` y su reporte. La robustez genera `results/metrics/stress_*`, un gráfico y los resultados en `docs/robustez.md`. Las 66 pruebas cubren datos, transformaciones, métricas, modelos, selección anidada, conteos, intervalos y perturbaciones; no certifican la interfaz ni la validez institucional. Los archivos de resultados están incluidos o se regeneran con `src.train`, `src.optimize`, `src.fairness` y `src.stress`.
 
 Para ejecutar un notebook sin una interfaz Jupyter, desde la raíz del repositorio (cambiar el nombre por `02_preprocesamiento.ipynb`, `03_modelado.ipynb` o `04_optimizacion.ipynb` para los siguientes). El notebook 04 verifica resultados guardados por defecto; permite repetir la búsqueda con `RETRAIN=True`:
 

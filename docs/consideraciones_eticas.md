@@ -27,6 +27,11 @@ ni reflejan toda la dependencia entre casos y modelos. No se certifica equidad.
 
 ## Salvaguardas propuestas
 
+Las [pruebas de robustez](robustez.md) muestran deterioro de F1 ante ausencia
+extensa de datos, carreras desconocidas y desplazamiento de notas. Validar
+esquema, categorias y escalas es necesario antes de ofrecer una puntuacion;
+que el pipeline acepte una entrada no significa que esa entrada sea fiable.
+
 Mantener una via abierta de solicitud de apoyo fuera del ranking, revision
 humana y derecho a cuestionar la priorizacion ante una persona distinta del
 decisor. Estas son propuestas de gobernanza; no mecanismos institucionales

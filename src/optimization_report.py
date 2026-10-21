@@ -228,8 +228,9 @@ Los folds comparten datos de entrenamiento y la eleccion posterior de familia
 usa desarrollo; la estimacion confirmatoria requerira el protocolo final.
 
 La [auditoria por subgrupos](../results/reports/fairness_report.md) evalua la
-regresion de referencia, no estas estrategias nuevas. Estos experimentos no
-incluyen pruebas de estres, calibracion ni evaluacion de la reserva.
+regresion de referencia, no estas estrategias nuevas. Las [pruebas de robustez](robustez.md)
+tambien se aplican a la regresion de referencia. Estos experimentos de
+optimizacion no incluyen calibracion ni evaluacion de la reserva.
 No se han usado datos de prueba para elegir configuraciones.
 
 ## Reproduccion
