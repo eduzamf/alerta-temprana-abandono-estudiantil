@@ -72,6 +72,11 @@ temporal, causal ni transferencia institucional a Ecuador.
 
 ## Evidencia
 
+El artefacto se entreno y verifico con las 3.539 filas de desarrollo, sin
+advertencias de entrenamiento. La serializacion conserva exactamente las
+predicciones. [Modelo y metadatos](../models/README.md). Esta comprobacion no
+incluye evaluar la reserva ni demostrar la meta de F1.
+
 - [Modelos base](../results/reports/baseline_report.md)
 - [Optimizacion anidada](optimizacion.md)
 - [Subgrupos de LR](../results/reports/fairness_report.md)

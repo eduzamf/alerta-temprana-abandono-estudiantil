@@ -1,7 +1,8 @@
 # Arquitectura del sistema
 
 Estado: carga, preprocesamiento, modelos base y optimizacion anidada implementados y auditados.
-La seleccion del clasificador final, la aplicacion y su integracion estan pendientes.
+El clasificador seleccionado es LR_base; su pipeline entrenado esta en
+`models/student_support_v1.joblib`. La aplicacion no forma parte de esta version.
 
 ## Flujo de desarrollo implementado
 
@@ -112,7 +113,8 @@ de los cinco folds externos. Cada ajuste vuelve a aprender el pipeline solo
 con entrenamiento interno. Su funcion `verify()` audita seleccion, particiones
 y metricas externas desde predicciones guardadas. El [protocolo y los resultados](optimizacion.md)
 incluyen sensibilidad descriptiva de hiperparametros. No hay modelo definitivo
-guardado todavia.
+guardado por esos experimentos. La seleccion posterior y su artefacto se
+documentan en [la decision final](seleccion_modelo.md).
 
 ## Integracion final pendiente
 
@@ -123,6 +125,10 @@ con todo desarrollo. El entrenamiento definitivo se realizara despues de fijar
 el modelo y protocolo, y la reserva se evaluara sin reajustar con ella.
 
 Las versiones verificadas se fijan en [requirements.txt](../requirements.txt).
-La arquitectura completa, justificacion del clasificador final, persistencia,
-contrato de salida e interfaz se documentaran al implementarse. No se ha
-seleccionado aun un modelo final en este repositorio.
+La persistencia se implementa en `src/finalize.py`: entrena exclusivamente en
+desarrollo y rechaza sobrescribir el artefacto existente. Los metadatos registran
+huellas, versiones e indices de entrenamiento. El pipeline acepta los 18
+predictores y devuelve clases o puntuaciones en el orden registrado.
+`load_frozen()` comprueba huella, configuracion y version de scikit-learn.
+Solo se deben deserializar artefactos de confianza. La interfaz se documentara
+con su contrato de entrada al implementarse.
