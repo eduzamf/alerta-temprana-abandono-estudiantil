@@ -137,8 +137,9 @@ respalda. No se interpreta una diferencia pequena como significacion estadistica
 Los folds comparten datos de entrenamiento y la eleccion posterior de familia
 usa desarrollo; la estimacion confirmatoria requerira el protocolo final.
 
-Persisten pendientes las pruebas de estres con tolerancias previas, fairness
-por subgrupos, calibracion, seleccion definitiva y evaluacion de la reserva.
+La [auditoria por subgrupos](../results/reports/fairness_report.md) evalua la
+regresion de referencia, no estas estrategias nuevas. Estos experimentos no
+incluyen pruebas de estres, calibracion ni evaluacion de la reserva.
 No se han usado datos de prueba para elegir configuraciones.
 
 ## Reproduccion

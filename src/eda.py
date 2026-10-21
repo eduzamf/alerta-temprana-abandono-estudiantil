@@ -331,9 +331,11 @@ Son intervalos descriptivos, no umbrales de elegibilidad para recibir apoyo.
 La figura de nacionalidad agrupa codigo 1 y otros codigos unicamente para
 legibilidad; la tabla y el JSON conservan todos los grupos. Las diferencias de
 tamano y la composicion por edad no son metricas de discriminacion del modelo.
-Todavia faltan tasas de seleccion, cobertura y falsos positivos por subgrupo,
-con conteos e intervalos de Wilson calculados sobre predicciones de validacion.
-Los grupos pequenos no permiten conclusiones fuertes sobre equidad.
+La [auditoria de LR de referencia](../results/reports/fairness_report.md)
+presenta tasas de seleccion, cobertura y falsos positivos por subgrupo, con
+conteos e intervalos de Wilson sobre predicciones de validacion. Este EDA
+describe composicion, no rendimiento. Los grupos pequenos no permiten
+conclusiones fuertes sobre equidad.
 
 ## Visualizaciones
 
