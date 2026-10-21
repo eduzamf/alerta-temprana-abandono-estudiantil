@@ -4,7 +4,7 @@ Prototipo académico de inteligencia artificial para identificar estudiantes que
 
 **Autor:** Carlos Zambrano Figueroa. **Grupo:** 11, trabajo individual.
 
-**Estado:** datos y particiones históricas incorporados y verificados. Todavía no hay una aplicación ejecutable ni un modelo final incorporado. La documentación restante está en desarrollo.
+**Estado:** datos, particiones y análisis exploratorio incorporados y verificados. Todavía no hay una aplicación ejecutable ni un modelo final incorporado. La documentación restante está en desarrollo.
 
 ## Contenido
 
@@ -36,7 +36,7 @@ results/metrics/       Métricas verificables
 results/reports/       Reportes derivados
 ```
 
-Los archivos `.gitkeep` permiten registrar carpetas inicialmente vacías. El cargador de datos y sus ocho pruebas están implementados; los demás módulos y pruebas siguen pendientes. Los notebooks contienen únicamente orientación inicial.
+Los archivos `.gitkeep` permiten registrar carpetas inicialmente vacías. El cargador y el análisis exploratorio están implementados, con 16 pruebas automatizadas. `01_exploracion.ipynb` contiene el análisis ejecutado; los notebooks restantes y los módulos de modelado e interfaz siguen pendientes.
 
 ## Documentación
 
@@ -53,6 +53,8 @@ Dataset incorporado: *Predict Students' Dropout and Academic Success*, UCI, bajo
 
 La auditoría confirma 4.424 filas: 3.539 de desarrollo y 885 de reserva; se conservan los cinco folds históricos y las 18 variables predictoras. [Auditoría reproducible](results/metrics/data_audit.json). Estos conteos no son métricas de rendimiento.
 
+El [análisis exploratorio](docs/analisis_datos.md) incluye siete figuras y tablas sobre clases, distribuciones, valores atípicos, correlaciones, categorías y subgrupos. Utiliza únicamente desarrollo. La representación demográfica no se presenta como una evaluación de equidad del modelo.
+
 Los resultados históricos se integrarán después de verificar sus archivos de origen y particiones. No se publican cifras finales todavía. Se distinguirán validación, optimización y prueba final, preservando esta última hasta fijar el protocolo.
 
 ## Instalación y pruebas
@@ -63,10 +65,17 @@ La auditoría se verificó con Python 3.11.8 y las versiones de `requirements.tx
 python -m venv .venv
 .\.venv\Scripts\python.exe -m pip install -r requirements.txt
 .\.venv\Scripts\python.exe -m src.data_processing
+.\.venv\Scripts\python.exe -m src.eda
 .\.venv\Scripts\python.exe -m unittest discover -s tests -v
 ```
 
-En otros sistemas usar `.venv/bin/python`. La auditoría genera `results/metrics/data_audit.json`. Las ocho pruebas comprueban datos y particiones; no certifican todavía modelos ni interfaz. Las dependencias de la aplicación se incorporarán cuando se implemente y verifique.
+En otros sistemas usar `.venv/bin/python`. La auditoría genera `results/metrics/data_audit.json`. El EDA genera `results/metrics/eda.json`, las siete figuras y `docs/analisis_datos.md`; editar la plantilla en `src/eda.py` si se modifica esa documentación, porque se regenera. Las 16 pruebas comprueban datos, particiones y consistencia del análisis, no certifican todavía modelos ni interfaz. Las dependencias de la aplicación se incorporarán cuando se implemente y verifique.
+
+Para ejecutar el notebook sin una interfaz Jupyter, desde la raíz del repositorio:
+
+```powershell
+.\.venv\Scripts\python.exe -c "import nbformat; from nbclient import NotebookClient; p='notebooks/01_exploracion.ipynb'; n=nbformat.read(p, as_version=4); NotebookClient(n, timeout=180, kernel_name='python3').execute(); nbformat.write(n,p)"
+```
 
 No cargar datos personales reales ni credenciales en este repositorio público.
 

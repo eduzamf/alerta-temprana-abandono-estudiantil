@@ -1,0 +1,495 @@
+{
+  "scope": "development only; no final-test evaluation",
+  "dataset_sha256": "3ef126de5cefff26eb11fbb4237f1a1401cb64b488e2f1d598c23cedeb4c45ae",
+  "partitions_sha256": "421699f3d13e2f4d0096ed829ac971ee29ee7f694d300730df08414c2d39da14",
+  "rows": 3539,
+  "predictor_count": 18,
+  "class_counts": {
+    "Dropout": 1137,
+    "Enrolled": 635,
+    "Graduate": 1767
+  },
+  "missing_cells": 0,
+  "exact_duplicates": 0,
+  "duplicate_feature_rows": 0,
+  "numeric": {
+    "Application order": {
+      "count": 3539.0,
+      "mean": 1.727041537157389,
+      "std": 1.3072743085646752,
+      "min": 0.0,
+      "25%": 1.0,
+      "50%": 1.0,
+      "75%": 2.0,
+      "max": 9.0,
+      "iqr_lower": -0.5,
+      "iqr_upper": 3.5,
+      "iqr_flags": 431
+    },
+    "Previous qualification (grade)": {
+      "count": 3539.0,
+      "mean": 132.684713195818,
+      "std": 13.2022481574731,
+      "min": 95.0,
+      "25%": 125.0,
+      "50%": 133.1,
+      "75%": 140.0,
+      "max": 190.0,
+      "iqr_lower": 102.5,
+      "iqr_upper": 162.5,
+      "iqr_flags": 135
+    },
+    "Admission grade": {
+      "count": 3539.0,
+      "mean": 126.87674484317606,
+      "std": 14.53070622617789,
+      "min": 95.0,
+      "25%": 117.8,
+      "50%": 126.0,
+      "75%": 134.9,
+      "max": 190.0,
+      "iqr_lower": 92.14999999999998,
+      "iqr_upper": 160.55,
+      "iqr_flags": 68
+    },
+    "Age at enrollment": {
+      "count": 3539.0,
+      "mean": 23.24950551003108,
+      "std": 7.605164088466794,
+      "min": 17.0,
+      "25%": 19.0,
+      "50%": 20.0,
+      "75%": 25.0,
+      "max": 70.0,
+      "iqr_lower": 10.0,
+      "iqr_upper": 34.0,
+      "iqr_flags": 358
+    }
+  },
+  "categorical": {
+    "Marital status": {
+      "levels": 6,
+      "counts": {
+        "1": 3144,
+        "2": 296,
+        "3": 3,
+        "4": 73,
+        "5": 19,
+        "6": 4
+      },
+      "levels_under_10": 2,
+      "rows_in_levels_under_10": 7
+    },
+    "Application mode": {
+      "levels": 18,
+      "counts": {
+        "1": 1364,
+        "2": 3,
+        "5": 15,
+        "7": 109,
+        "10": 10,
+        "15": 24,
+        "16": 31,
+        "17": 701,
+        "18": 98,
+        "26": 1,
+        "27": 1,
+        "39": 621,
+        "42": 59,
+        "43": 249,
+        "44": 176,
+        "51": 45,
+        "53": 31,
+        "57": 1
+      },
+      "levels_under_10": 4,
+      "rows_in_levels_under_10": 6
+    },
+    "Course": {
+      "levels": 17,
+      "counts": {
+        "33": 10,
+        "171": 175,
+        "8014": 165,
+        "9003": 171,
+        "9070": 174,
+        "9085": 277,
+        "9119": 133,
+        "9130": 115,
+        "9147": 302,
+        "9238": 291,
+        "9254": 198,
+        "9500": 607,
+        "9556": 66,
+        "9670": 213,
+        "9773": 267,
+        "9853": 158,
+        "9991": 217
+      },
+      "levels_under_10": 0,
+      "rows_in_levels_under_10": 0
+    },
+    "Daytime/evening attendance": {
+      "levels": 2,
+      "counts": {
+        "0": 382,
+        "1": 3157
+      },
+      "levels_under_10": 0,
+      "rows_in_levels_under_10": 0
+    },
+    "Previous qualification": {
+      "levels": 17,
+      "counts": {
+        "1": 2962,
+        "2": 21,
+        "3": 101,
+        "4": 5,
+        "5": 1,
+        "6": 13,
+        "9": 9,
+        "10": 4,
+        "12": 34,
+        "14": 1,
+        "15": 1,
+        "19": 127,
+        "38": 7,
+        "39": 185,
+        "40": 30,
+        "42": 32,
+        "43": 6
+      },
+      "levels_under_10": 8,
+      "rows_in_levels_under_10": 34
+    },
+    "Nacionality": {
+      "levels": 19,
+      "counts": {
+        "1": 3453,
+        "2": 1,
+        "6": 13,
+        "11": 3,
+        "13": 1,
+        "14": 1,
+        "21": 2,
+        "22": 10,
+        "24": 3,
+        "25": 1,
+        "26": 12,
+        "32": 1,
+        "41": 26,
+        "62": 2,
+        "100": 3,
+        "101": 2,
+        "103": 2,
+        "105": 2,
+        "108": 1
+      },
+      "levels_under_10": 14,
+      "rows_in_levels_under_10": 25
+    },
+    "Mother's qualification": {
+      "levels": 28,
+      "counts": {
+        "1": 863,
+        "2": 67,
+        "3": 344,
+        "4": 38,
+        "5": 19,
+        "6": 3,
+        "9": 6,
+        "10": 3,
+        "11": 1,
+        "12": 34,
+        "14": 1,
+        "18": 1,
+        "19": 777,
+        "22": 1,
+        "26": 1,
+        "29": 3,
+        "30": 2,
+        "34": 108,
+        "35": 1,
+        "36": 3,
+        "37": 793,
+        "38": 444,
+        "39": 6,
+        "40": 8,
+        "41": 5,
+        "42": 3,
+        "43": 3,
+        "44": 1
+      },
+      "levels_under_10": 18,
+      "rows_in_levels_under_10": 52
+    },
+    "Father's qualification": {
+      "levels": 32,
+      "counts": {
+        "1": 717,
+        "2": 53,
+        "3": 228,
+        "4": 32,
+        "5": 14,
+        "6": 2,
+        "9": 4,
+        "10": 2,
+        "11": 9,
+        "12": 31,
+        "14": 3,
+        "18": 1,
+        "19": 779,
+        "20": 1,
+        "22": 2,
+        "25": 1,
+        "26": 1,
+        "27": 1,
+        "29": 3,
+        "30": 4,
+        "31": 1,
+        "34": 93,
+        "35": 1,
+        "36": 7,
+        "37": 959,
+        "38": 563,
+        "39": 16,
+        "40": 5,
+        "41": 2,
+        "42": 1,
+        "43": 2,
+        "44": 1
+      },
+      "levels_under_10": 21,
+      "rows_in_levels_under_10": 54
+    },
+    "Mother's occupation": {
+      "levels": 31,
+      "counts": {
+        "0": 115,
+        "1": 83,
+        "2": 252,
+        "3": 269,
+        "4": 661,
+        "5": 429,
+        "6": 77,
+        "7": 221,
+        "8": 27,
+        "9": 1261,
+        "10": 3,
+        "90": 54,
+        "99": 14,
+        "122": 2,
+        "123": 4,
+        "131": 1,
+        "132": 1,
+        "134": 3,
+        "141": 7,
+        "143": 3,
+        "144": 5,
+        "151": 3,
+        "152": 1,
+        "153": 2,
+        "171": 1,
+        "173": 1,
+        "175": 2,
+        "191": 22,
+        "192": 4,
+        "193": 2,
+        "194": 9
+      },
+      "levels_under_10": 18,
+      "rows_in_levels_under_10": 54
+    },
+    "Father's occupation": {
+      "levels": 41,
+      "counts": {
+        "0": 107,
+        "1": 113,
+        "2": 167,
+        "3": 304,
+        "4": 310,
+        "5": 410,
+        "6": 198,
+        "7": 501,
+        "8": 260,
+        "9": 819,
+        "10": 210,
+        "90": 53,
+        "99": 16,
+        "101": 1,
+        "102": 1,
+        "103": 2,
+        "112": 1,
+        "122": 2,
+        "123": 2,
+        "131": 1,
+        "134": 1,
+        "135": 3,
+        "141": 1,
+        "143": 1,
+        "144": 5,
+        "151": 2,
+        "152": 2,
+        "153": 1,
+        "154": 1,
+        "161": 1,
+        "163": 5,
+        "171": 7,
+        "172": 2,
+        "175": 3,
+        "181": 2,
+        "182": 2,
+        "183": 2,
+        "192": 6,
+        "193": 11,
+        "194": 2,
+        "195": 1
+      },
+      "levels_under_10": 27,
+      "rows_in_levels_under_10": 60
+    },
+    "Displaced": {
+      "levels": 2,
+      "counts": {
+        "0": 1597,
+        "1": 1942
+      },
+      "levels_under_10": 0,
+      "rows_in_levels_under_10": 0
+    },
+    "Educational special needs": {
+      "levels": 2,
+      "counts": {
+        "0": 3498,
+        "1": 41
+      },
+      "levels_under_10": 0,
+      "rows_in_levels_under_10": 0
+    },
+    "Gender": {
+      "levels": 2,
+      "counts": {
+        "0": 2298,
+        "1": 1241
+      },
+      "levels_under_10": 0,
+      "rows_in_levels_under_10": 0
+    },
+    "International": {
+      "levels": 2,
+      "counts": {
+        "0": 3453,
+        "1": 86
+      },
+      "levels_under_10": 0,
+      "rows_in_levels_under_10": 0
+    }
+  },
+  "subgroup_counts": {
+    "Genero (codigo)": {
+      "1": 1241,
+      "0": 2298
+    },
+    "Edad": {
+      "Menos de 20": 1579,
+      "20-24": 1056,
+      "25-34": 546,
+      "35 o mas": 358
+    },
+    "Nacionalidad (codigo)": {
+      "1": 3453,
+      "26": 12,
+      "22": 10,
+      "41": 26,
+      "6": 13,
+      "21": 2,
+      "24": 3,
+      "62": 2,
+      "11": 3,
+      "103": 2,
+      "105": 2,
+      "101": 2,
+      "100": 3,
+      "32": 1,
+      "14": 1,
+      "25": 1,
+      "13": 1,
+      "108": 1,
+      "2": 1
+    },
+    "Necesidades especiales (codigo)": {
+      "0": 3498,
+      "1": 41
+    },
+    "Beca (codigo; solo auditoria)": {
+      "0": 2645,
+      "1": 894
+    },
+    "Deuda (codigo; solo auditoria)": {
+      "0": 3150,
+      "1": 389
+    }
+  },
+  "age_outcomes": {
+    "Menos de 20": {
+      "Dropout": 327,
+      "Enrolled": 267,
+      "Graduate": 985
+    },
+    "20-24": {
+      "Dropout": 308,
+      "Enrolled": 238,
+      "Graduate": 510
+    },
+    "25-34": {
+      "Dropout": 310,
+      "Enrolled": 87,
+      "Graduate": 149
+    },
+    "35 o mas": {
+      "Dropout": 192,
+      "Enrolled": 43,
+      "Graduate": 123
+    }
+  },
+  "spearman_numeric": {
+    "Application order": {
+      "Application order": 1.0,
+      "Previous qualification (grade)": -0.07161684855231848,
+      "Admission grade": -0.10368580761632905,
+      "Age at enrollment": -0.36708016162590795
+    },
+    "Previous qualification (grade)": {
+      "Application order": -0.07161684855231848,
+      "Previous qualification (grade)": 1.0,
+      "Admission grade": 0.5830363009096474,
+      "Age at enrollment": -0.1466045318677243
+    },
+    "Admission grade": {
+      "Application order": -0.10368580761632905,
+      "Previous qualification (grade)": 0.5830363009096474,
+      "Admission grade": 1.0,
+      "Age at enrollment": -0.1054001974470189
+    },
+    "Age at enrollment": {
+      "Application order": -0.36708016162590795,
+      "Previous qualification (grade)": -0.1466045318677243,
+      "Admission grade": -0.1054001974470189,
+      "Age at enrollment": 1.0
+    }
+  },
+  "range_check_violations": {
+    "Previous qualification (grade)": 0,
+    "Admission grade": 0,
+    "Application order": 0,
+    "Age at enrollment": 0,
+    "Gender": 0,
+    "Displaced": 0,
+    "Educational special needs": 0,
+    "International": 0,
+    "Daytime/evening attendance": 0,
+    "Scholarship holder": 0,
+    "Debtor": 0
+  },
+  "range_check_note": "Limited checks, not a complete validation of all category codes."
+}
