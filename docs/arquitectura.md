@@ -2,7 +2,7 @@
 
 Estado: carga, preprocesamiento, modelos base y optimizacion anidada implementados y auditados.
 El clasificador seleccionado es LR_base; su pipeline entrenado esta en
-`models/student_support_v1.joblib`. La aplicacion no forma parte de esta version.
+`models/student_support_v1.joblib`. La aplicacion local se integra mediante Flask.
 
 ## Flujo de desarrollo implementado
 
@@ -116,7 +116,7 @@ incluyen sensibilidad descriptiva de hiperparametros. No hay modelo definitivo
 guardado por esos experimentos. La seleccion posterior y su artefacto se
 documentan en [la decision final](seleccion_modelo.md).
 
-## Integracion final pendiente
+## Integracion del artefacto final
 
 La evaluacion del artefacto fijo se implementa en `src/final_evaluation.py`.
 Utiliza la reserva historica sin reajustar el pipeline. Conserva predicciones
@@ -135,5 +135,40 @@ desarrollo y rechaza sobrescribir el artefacto existente. Los metadatos registra
 huellas, versiones e indices de entrenamiento. El pipeline acepta los 18
 predictores y devuelve clases o puntuaciones en el orden registrado.
 `load_frozen()` comprueba huella, configuracion y version de scikit-learn.
-Solo se deben deserializar artefactos de confianza. La interfaz se documentara
-con su contrato de entrada al implementarse.
+Solo se deben deserializar artefactos de confianza.
+
+## Aplicacion local
+
+`app/app.py` sirve HTML, CSS, JavaScript e iconos locales; expone las rutas de
+muestra, contrato de columnas, evidencia y analisis CSV. `src/inference.py`
+centraliza lectura, validacion, inferencia y ranking estable. Ninguna ruta
+entrena modelos ni modifica la evidencia de evaluacion.
+
+```mermaid
+flowchart LR
+    A[CSV publico o sintetico] --> B[Validar tamano y 18 columnas]
+    B --> C[Validar codigos, rangos y faltantes]
+    C --> D[Pipeline fijo verificado]
+    D --> E[Puntuaciones y ranking al 20 por ciento]
+    E --> F[Revision en navegador]
+    F --> G[Exportacion voluntaria CSV]
+```
+
+El proceso solo escucha en 127.0.0.1. Se limita el CSV a 200 KB y 1.000 filas;
+se procesan cargas en memoria sin guardarlas como archivos del servidor.
+El esquema rechaza columnas extra, incluidas Target e identificadores; requiere
+al menos cinco registros. No se permiten categorias desconocidas ni filas con
+mas del 20% de celdas vacias. Los umbrales de admision son controles de interfaz,
+no nuevos hiperparametros ni una garantia de rendimiento bajo ese umbral.
+
+El ranking usa puntuacion Dropout, cupo ceil(0,20*n) y desempate por orden del
+archivo. Las filas se identifican con codigos locales de posicion. La exportacion
+incluye todo el lote ordenado, no las entradas originales. El navegador mantiene
+resultados solo durante la sesion de pagina; no hay persistencia de revisiones,
+autenticacion institucional ni contacto automatico con estudiantes.
+
+El modelo se carga desde un artefacto confiable y se comprueba su huella antes
+de cada inferencia. El servidor aplica limite de peticion, Host permitido,
+control de origen, CSP y cabeceras de seguridad. Estos controles son para una
+demostracion local, no sustituyen una evaluacion de seguridad para despliegue.
+El [manual](manual_usuario.md) documenta las pantallas y el contrato completo.

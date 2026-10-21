@@ -228,6 +228,7 @@ __marimo__/
 /app/uploads/
 /private/
 /tmp/
+/node_modules/
 ~$*
 *.mp4
 *.MP4

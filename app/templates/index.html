@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Alerta temprana | Apoyo estudiantil</title>
+  <link rel="stylesheet" href="/assets/app.css">
+  <script defer src="/assets/lucide.min.js"></script>
+  <script defer src="/assets/app.js"></script>
+</head>
+<body>
+  <aside class="sidebar">
+    <a class="brand" href="/" aria-label="Inicio"><i data-lucide="graduation-cap"></i><span>Alerta temprana<small>Apoyo estudiantil</small></span></a>
+    <div class="workspace">PROYECTO INTEGRADOR</div>
+    <nav aria-label="Secciones">
+      <button class="nav active" data-view="cohort" aria-current="page"><i data-lucide="list-ordered"></i> Priorización</button>
+      <button class="nav" data-view="evidence"><i data-lucide="chart-no-axes-combined"></i> Evidencia del modelo</button>
+      <button class="nav" data-view="data"><i data-lucide="table-properties"></i> Datos de entrada</button>
+    </nav>
+    <div class="sidebar-footer"><span class="local-dot"></span> Entorno local<small>Carlos Zambrano Figueroa<br>Grupo 11 · Maestría en IA</small></div>
+  </aside>
+  <main>
+    <header class="topbar"><span>Prototipo académico</span><span class="version">Regresión logística · v1</span></header>
+    <section class="view" id="cohort">
+      <div class="page-heading"><div><p class="eyebrow">ACOMPAÑAMIENTO ACADÉMICO</p><h1>Priorización de apoyo</h1></div><button id="demo" class="secondary"><i data-lucide="flask-conical"></i> Cargar muestra UCI</button></div>
+      <div class="notice"><i data-lucide="shield-alert"></i><p><strong>Revisión humana requerida.</strong> Apoyo voluntario, sin sanciones ni decisiones automáticas sobre beneficios. Las puntuaciones no son probabilidades calibradas.</p></div>
+      <form id="upload-form" class="upload-band">
+        <div class="file-control"><label for="csv-file">Lote de estudiantes</label><input id="csv-file" type="file" accept=".csv,text/csv" required aria-describedby="upload-limits"><small id="upload-limits">CSV · 18 variables · 5–1.000 filas · máximo 200 KB. Solo datos públicos o sintéticos, sin identificadores personales.</small></div>
+        <button class="primary" type="submit" id="analyze"><i data-lucide="scan-line"></i> Analizar CSV</button>
+      </form>
+      <div id="message" class="message" role="status" aria-live="polite" hidden></div>
+      <div id="warnings" class="warnings" hidden></div>
+      <div class="metrics" aria-label="Resumen del lote">
+        <div><span>Estudiantes en el lote</span><strong id="total">—</strong><small id="source">Sin lote activo</small></div>
+        <div><span>Casos priorizados</span><strong id="selected">—</strong><small>Cupo fijo: 20 %, redondeado hacia arriba</small></div>
+        <div><span>Celdas faltantes</span><strong id="missing">—</strong><small id="quality">Sin evaluación de calidad</small></div>
+      </div>
+      <section class="results">
+        <div class="section-heading"><div><h2>Lista de revisión</h2><p id="list-caption">Sin resultados</p></div><div class="actions"><button id="export" class="icon-button" title="Descargar resultados CSV" aria-label="Descargar resultados CSV" disabled><i data-lucide="download"></i></button><button id="clear" class="icon-button" title="Vaciar lote de la sesión" aria-label="Vaciar lote de la sesión"><i data-lucide="trash-2"></i></button></div></div>
+        <div class="table-tools"><label class="search"><i data-lucide="search"></i><input id="search" type="search" placeholder="Buscar caso" aria-label="Buscar por código de caso"></label><label class="check"><input type="checkbox" id="only-selected"> Solo priorizados</label><span id="visible-count"></span></div>
+        <div class="table-scroll"><table><thead><tr><th>Orden</th><th>Caso / fila CSV</th><th>Puntuación de abandono</th><th>Prioridad de revisión</th><th>Faltantes</th><th><span class="sr-only">Detalle</span></th></tr></thead><tbody id="rows"></tbody></table></div>
+        <div id="empty" class="empty" hidden><i data-lucide="inbox"></i><h3>Sin casos para mostrar</h3></div>
+        <footer class="pagination"><span id="page-label"></span><div><button id="prev" class="icon-button" title="Página anterior" aria-label="Página anterior"><i data-lucide="chevron-left"></i></button><button id="next" class="icon-button" title="Página siguiente" aria-label="Página siguiente"><i data-lucide="chevron-right"></i></button></div></footer>
+      </section>
+      <p class="footnote">Estar fuera del cupo no significa ausencia de necesidad. La solicitud de apoyo debe permanecer abierta fuera del ranking. Los códigos de caso corresponden únicamente al orden del archivo actual.</p>
+    </section>
+    <section class="view" id="evidence" hidden>
+      <div class="page-heading"><div><p class="eyebrow">EVALUACIÓN RESERVADA</p><h1>Evidencia del modelo</h1></div><span class="badge warning">Meta F1 no alcanzada</span></div>
+      <div class="metrics"><div><span>F1 macro · prueba final</span><strong id="final-f1">—</strong><small>Meta fijada: 0,60</small></div><div><span>Cobertura en el 20 %</span><strong id="final-coverage">—</strong><small>114 de 284 abandonos detectados</small></div><div><span>Casos de prueba</span><strong>885</strong><small>Separados de los 3.539 de desarrollo</small></div></div>
+      <div class="evidence-layout"><figure><img src="/evidence/confusion.png" alt="Matriz de confusión del modelo final: clases reales frente a predichas" width="1050" height="900"><figcaption>Prueba final. No describe el rendimiento del lote cargado.</figcaption></figure><div class="findings"><h2>Alcance de la evidencia</h2><dl><dt>La reserva no ajustó el modelo</dt><dd>Regresión logística original, 18 predictores y configuración fijada antes de evaluar.</dd><dt>170 abandonos fuera del cupo</dt><dd>El ranking cubrió el 40,14 %. No sustituye otras vías de apoyo.</dd><dt>Resultados de validación</dt><dd>F1 macro medio 0,51584; cobertura 39,75 %. No deben confundirse con la prueba final.</dd><dt>Límites de transferencia</dt><dd>Datos institucionales portugueses. Sin validación local en Ecuador ni evidencia causal de reducción del abandono.</dd></dl><a class="text-link" href="https://github.com/eduzamf/alerta-temprana-abandono-estudiantil/blob/main/docs/evaluacion_final.md" target="_blank" rel="noopener noreferrer">Informe y predicciones verificables <i data-lucide="arrow-up-right"></i></a></div></div>
+    </section>
+    <section class="view" id="data" hidden>
+      <div class="page-heading"><div><p class="eyebrow">CONTRATO DE ENTRADA</p><h1>Datos del lote</h1></div><div class="actions"><a class="secondary" href="/api/template"><i data-lucide="download"></i> Plantilla CSV</a><a class="primary" href="/api/sample"><i data-lucide="download"></i> Muestra pública</a></div></div>
+      <div class="notice"><i data-lucide="lock-keyhole"></i><p><strong>Sin nombres, correos ni identificaciones.</strong> No se admiten columnas adicionales ni datos académicos posteriores a la matrícula. El archivo se procesa en memoria; no se guarda en el repositorio.</p></div>
+      <div class="data-rules"><div><h2>Condiciones del archivo</h2><p>UTF-8, separador coma o punto y coma, decimal con punto. Celdas vacías permitidas hasta el 20 % por fila. Las 18 columnas son obligatorias.</p></div><div><h2>Calidad antes de priorizar</h2><p>Se rechazan códigos categóricos no vistos, infinitos y valores numéricos fuera de los límites admitidos. Las advertencias requieren revisión; no garantizan equivalencia de escalas.</p></div></div>
+      <div class="table-scroll"><table><thead><tr><th>Variable</th><th>Columna CSV</th><th>Valores admitidos</th></tr></thead><tbody id="schema"></tbody></table></div>
+    </section>
+  </main>
+  <dialog id="detail"><header><div><p class="eyebrow">REVISIÓN INDIVIDUAL</p><h2 id="detail-title"></h2></div><button class="icon-button" id="close-detail" aria-label="Cerrar detalle" title="Cerrar"><i data-lucide="x"></i></button></header><p class="detail-disclaimer">Puntuaciones del modelo, no diagnóstico ni probabilidad calibrada.</p><div id="detail-scores" class="score-list"></div><h3>Datos de entrada</h3><dl id="detail-features" class="feature-list"></dl></dialog>
+</body>
+</html>

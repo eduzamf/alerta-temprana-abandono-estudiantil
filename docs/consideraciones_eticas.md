@@ -31,6 +31,9 @@ Las [pruebas de robustez](robustez.md) muestran deterioro de F1 ante ausencia
 extensa de datos, carreras desconocidas y desplazamiento de notas. Validar
 esquema, categorias y escalas es necesario antes de ofrecer una puntuacion;
 que el pipeline acepte una entrada no significa que esa entrada sea fiable.
+La aplicacion local ya rechaza categorias no vistas y filas con mas del 20%
+de faltantes, comprueba rangos y muestra advertencias. Estos controles no prueban
+equidad ni equivalencia de escalas entre instituciones.
 
 Mantener una via abierta de solicitud de apoyo fuera del ranking, revision
 humana y derecho a cuestionar la priorizacion ante una persona distinta del

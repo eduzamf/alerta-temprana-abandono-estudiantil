@@ -4,6 +4,19 @@ Prototipo académico de inteligencia artificial para identificar estudiantes que
 
 **Autor:** Carlos Zambrano Figueroa. **Grupo:** 11, trabajo individual.
 
+## Aplicación local
+
+Con las dependencias instaladas, ejecutar desde la raíz:
+
+```powershell
+python -m app.app --port 5057
+```
+
+Abrir http://127.0.0.1:5057. La muestra inicial contiene 40 registros públicos
+de desarrollo. Permite cargar CSV, revisar casos y descargar el ranking.
+No guarda archivos cargados y no debe recibir datos personales reales.
+[Manual, requisitos de entrada y capturas](docs/manual_usuario.md).
+
 **Estado:** regresión logística entrenada y evaluada en los 885 casos de prueba final. F1 macro: **0,49366**; meta de 0,60 **no alcanzada**. Se incluyen experimentos, optimización, subgrupos y robustez. El prototipo no constituye una aplicación institucional validada.
 
 ## Contenido
@@ -36,7 +49,7 @@ results/metrics/       Métricas verificables
 results/reports/       Reportes derivados
 ```
 
-Los archivos `.gitkeep` permiten registrar carpetas inicialmente vacías. Los experimentos, el artefacto seleccionado y la evaluación final están implementados, con 76 pruebas automatizadas. Los cinco notebooks están ejecutados; la interfaz no forma parte de esta versión.
+Los archivos `.gitkeep` permiten registrar carpetas inicialmente vacías. Los experimentos, el artefacto, la evaluación final y la aplicación local están implementados, con 90 pruebas Python y un recorrido automatizado de navegador. Los cinco notebooks están ejecutados. La interfaz usa el modelo fijo, sin entrenar con los archivos cargados.
 
 ## Documentación
 
@@ -95,7 +108,11 @@ python -m venv .venv
 
 En otros sistemas usar `.venv/bin/python`. La auditoría genera `results/metrics/data_audit.json`. El EDA genera `results/metrics/eda.json`, siete figuras y `docs/analisis_datos.md`; editar la plantilla en `src/eda.py` si se modifica esa documentación. La auditoría de preprocesamiento genera `results/metrics/preprocessing_audit.json`. El entrenamiento guarda predicciones OOF, registros y métricas en `results/metrics/baseline_*`; el reporte y sus tres gráficos se generan con `src.baseline_report`.
 
-La optimización genera `results/metrics/optimization_*`; `src.optimization_report` genera cinco figuras y la sección de resultados de `docs/optimizacion.md`. La auditoría genera `results/metrics/fairness_*` y su reporte. La robustez genera `results/metrics/stress_*`, un gráfico y los resultados en `docs/robustez.md`. Las 76 pruebas cubren también el artefacto congelado y la evaluación final; no certifican la interfaz ni la validez institucional. Los resultados de desarrollo se regeneran con `src.train`, `src.optimize`, `src.fairness` y `src.stress`. `src.finalize` verifica el modelo existente sin sobrescribirlo. `src.final_evaluation` verifica la prueba guardada; no vuelve a predecir si ya existe.
+La optimización genera `results/metrics/optimization_*`; `src.optimization_report` genera cinco figuras y la sección de resultados de `docs/optimizacion.md`. La auditoría genera `results/metrics/fairness_*` y su reporte. La robustez genera `results/metrics/stress_*`, un gráfico y los resultados en `docs/robustez.md`. Las 90 pruebas cubren también el artefacto, la evaluación final y los controles de la aplicación; no certifican seguridad ni validez institucional. Los resultados de desarrollo se regeneran con `src.train`, `src.optimize`, `src.fairness` y `src.stress`. `src.finalize` verifica el modelo existente sin sobrescribirlo. `src.final_evaluation` verifica la prueba guardada; no vuelve a predecir si ya existe.
+
+Para las pruebas opcionales de navegador, instalar Node, Chrome y las dependencias
+de desarrollo con `npm install`; iniciar el servidor y ejecutar `npm run test:browser`.
+Node y Playwright no se requieren para el uso normal de la aplicación.
 
 Para ejecutar un notebook sin una interfaz Jupyter, desde la raíz del repositorio, cambiar el nombre por cualquiera de los cinco notebooks. El 04 verifica resultados guardados por defecto; el 05 verifica la prueba final sin volver a inferir ni entrenar:
 
@@ -107,7 +124,7 @@ No cargar datos personales reales ni credenciales en este repositorio público.
 
 ## Licencias
 
-La licencia del código está pendiente de decisión del autor; no se concede aquí una licencia de reutilización. Se incorporará `LICENSE` cuando se elija. Los datos tienen una licencia independiente, que se documentará con su atribución.
+La licencia del código está pendiente de decisión del autor; no se concede aquí una licencia de reutilización. Se incorporará `LICENSE` cuando se elija. Los datos tienen licencia y atribución documentadas en data/README.md. Los iconos Lucide conservan su licencia de terceros en app/assets/lucide-LICENSE.txt.
 
 ## Videos
 

@@ -1,1 +1,1 @@
-# Pendiente: dependencias verificadas de la interfaz final.
+-r ../requirements.txt

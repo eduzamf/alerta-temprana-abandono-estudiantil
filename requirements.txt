@@ -1,4 +1,4 @@
-# Verified data-audit environment; app/model dependencies will be added when tested.
+# Verified experiment and local application dependencies.
 numpy==1.26.4
 pandas==2.2.3
 scikit-learn==1.6.1
@@ -9,3 +9,5 @@ matplotlib==3.10.0
 nbformat==5.10.4
 nbclient==0.10.2
 ipykernel==6.29.5
+Flask==3.1.2
+Werkzeug==3.1.9
