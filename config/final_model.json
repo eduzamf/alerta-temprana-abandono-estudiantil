@@ -1,0 +1,12 @@
+{
+  "version": "1.0",
+  "model": "LR_base",
+  "parameters": {"C": 1.0, "class_weight": "balanced", "max_iter": 3000, "random_state": 42},
+  "numeric_degree": 1,
+  "calibration": "none",
+  "ranking_fraction": 0.2,
+  "primary_metric": "f1_macro",
+  "primary_target": 0.6,
+  "test_order": "historical train_test_split random_state=42",
+  "post_test_tuning": false
+}
