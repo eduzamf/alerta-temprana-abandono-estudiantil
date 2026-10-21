@@ -1,0 +1,194 @@
+{
+  "surface": [
+    {
+      "n_estimators": 100,
+      "max_depth": 4,
+      "min_samples_leaf": 5,
+      "inner_f1": 0.5031308689423662
+    },
+    {
+      "n_estimators": 100,
+      "max_depth": 4,
+      "min_samples_leaf": 15,
+      "inner_f1": 0.5024815254611258
+    },
+    {
+      "n_estimators": 100,
+      "max_depth": 4,
+      "min_samples_leaf": 30,
+      "inner_f1": 0.5007927486550606
+    },
+    {
+      "n_estimators": 100,
+      "max_depth": 8,
+      "min_samples_leaf": 5,
+      "inner_f1": 0.5116549020448098
+    },
+    {
+      "n_estimators": 100,
+      "max_depth": 8,
+      "min_samples_leaf": 15,
+      "inner_f1": 0.5098457874139243
+    },
+    {
+      "n_estimators": 100,
+      "max_depth": 8,
+      "min_samples_leaf": 30,
+      "inner_f1": 0.5021993801160258
+    },
+    {
+      "n_estimators": 100,
+      "max_depth": 16,
+      "min_samples_leaf": 5,
+      "inner_f1": 0.5112362237022667
+    },
+    {
+      "n_estimators": 100,
+      "max_depth": 16,
+      "min_samples_leaf": 15,
+      "inner_f1": 0.5089139054012652
+    },
+    {
+      "n_estimators": 100,
+      "max_depth": 16,
+      "min_samples_leaf": 30,
+      "inner_f1": 0.5012032153100628
+    },
+    {
+      "n_estimators": 200,
+      "max_depth": 4,
+      "min_samples_leaf": 5,
+      "inner_f1": 0.5052370328775023
+    },
+    {
+      "n_estimators": 200,
+      "max_depth": 4,
+      "min_samples_leaf": 15,
+      "inner_f1": 0.5014620141528565
+    },
+    {
+      "n_estimators": 200,
+      "max_depth": 4,
+      "min_samples_leaf": 30,
+      "inner_f1": 0.5004993874650749
+    },
+    {
+      "n_estimators": 200,
+      "max_depth": 8,
+      "min_samples_leaf": 5,
+      "inner_f1": 0.5132664043110866
+    },
+    {
+      "n_estimators": 200,
+      "max_depth": 8,
+      "min_samples_leaf": 15,
+      "inner_f1": 0.5081305166506633
+    },
+    {
+      "n_estimators": 200,
+      "max_depth": 8,
+      "min_samples_leaf": 30,
+      "inner_f1": 0.5013789636663287
+    },
+    {
+      "n_estimators": 200,
+      "max_depth": 16,
+      "min_samples_leaf": 5,
+      "inner_f1": 0.5110826315388773
+    },
+    {
+      "n_estimators": 200,
+      "max_depth": 16,
+      "min_samples_leaf": 15,
+      "inner_f1": 0.5095616205824424
+    },
+    {
+      "n_estimators": 200,
+      "max_depth": 16,
+      "min_samples_leaf": 30,
+      "inner_f1": 0.5027400510589295
+    }
+  ],
+  "surrogate": {
+    "type": "RandomForestRegressor",
+    "trees": 300,
+    "seed": 42,
+    "training_r2": 0.9861981736902402,
+    "importance_mdi": {
+      "n_estimators": 0.02202132412213278,
+      "max_depth": 0.3951802469951825,
+      "min_samples_leaf": 0.5827984288826847
+    }
+  },
+  "comparisons": {
+    "LR_quadratic": {
+      "baseline": "LR_base",
+      "delta_f1": 0.0019335511202339672,
+      "delta_coverage": 0.005282479326068457,
+      "gap_before": 0.05901570722984206,
+      "gap_after": 0.05152392780111259,
+      "fold_differences": [
+        {
+          "fold": 1,
+          "delta_f1": 0.010076800291174304,
+          "delta_recall20": 0.0044052863436123135
+        },
+        {
+          "fold": 2,
+          "delta_f1": 0.01854173929899028,
+          "delta_recall20": 0.008810572687224683
+        },
+        {
+          "fold": 3,
+          "delta_f1": -0.007221539965453161,
+          "delta_recall20": 0.00438596491228066
+        },
+        {
+          "fold": 4,
+          "delta_f1": 0.0014851183720993033,
+          "delta_recall20": 0.0
+        },
+        {
+          "fold": 5,
+          "delta_f1": -0.013214362395641555,
+          "delta_recall20": 0.008810572687224683
+        }
+      ]
+    },
+    "RF_regularized": {
+      "baseline": "RF_base",
+      "delta_f1": -0.0020362661293189532,
+      "delta_coverage": 0.005278615039802093,
+      "gap_before": 0.2606126794147171,
+      "gap_after": 0.09891581339204225,
+      "fold_differences": [
+        {
+          "fold": 1,
+          "delta_f1": 0.002170580973016145,
+          "delta_recall20": 0.026431718061673992
+        },
+        {
+          "fold": 2,
+          "delta_f1": -0.008620545187437934,
+          "delta_recall20": -0.004405286343612369
+        },
+        {
+          "fold": 3,
+          "delta_f1": -0.010768044900409834,
+          "delta_recall20": 0.004385964912280715
+        },
+        {
+          "fold": 4,
+          "delta_f1": 0.006734581042416088,
+          "delta_recall20": 0.004385964912280715
+        },
+        {
+          "fold": 5,
+          "delta_f1": 0.0003020974258201581,
+          "delta_recall20": -0.0044052863436123135
+        }
+      ]
+    }
+  },
+  "limitations": "Surrogate fitted to 18 aggregated search points; in-sample R2 is fidelity, not generalization. MDI and PDP depend on tested ranges. Correlated folds do not provide independent replicates."
+}

@@ -4,7 +4,7 @@ Prototipo académico de inteligencia artificial para identificar estudiantes que
 
 **Autor:** Carlos Zambrano Figueroa. **Grupo:** 11, trabajo individual.
 
-**Estado:** datos, EDA, preprocesamiento y modelos base reproducidos. Todavía no hay una aplicación ejecutable ni un modelo final seleccionado. La optimización y la documentación restante están en desarrollo.
+**Estado:** datos, EDA, preprocesamiento, modelos base y optimización anidada ejecutados. Todavía no hay una aplicación ejecutable ni un modelo final seleccionado. Las pruebas de estrés, la evaluación por subgrupos y la documentación restante están pendientes.
 
 ## Contenido
 
@@ -36,7 +36,7 @@ results/metrics/       Métricas verificables
 results/reports/       Reportes derivados
 ```
 
-Los archivos `.gitkeep` permiten registrar carpetas inicialmente vacías. La carga, el EDA, el preprocesamiento y los modelos base están implementados, con 44 pruebas automatizadas. Los notebooks 01, 02 y 03 están ejecutados; la optimización, evaluación final e interfaz siguen pendientes.
+Los archivos `.gitkeep` permiten registrar carpetas inicialmente vacías. La carga, el EDA, el preprocesamiento, los modelos base y la optimización están implementados, con 51 pruebas automatizadas. Los notebooks 01 a 04 están ejecutados; la evaluación final e interfaz siguen pendientes.
 
 ## Documentación
 
@@ -59,6 +59,8 @@ Los modelos base reproducen los resultados históricos: F1 macro medio de 0,5158
 
 ## Instalación y pruebas
 
+La [optimización anidada](docs/optimizacion.md) limita el sobreajuste de Random Forest y evalúa relaciones cuadráticas en la regresión. Sus F1 de validación son 0,51792 y 0,51777, respectivamente: no alcanzan 0,60 ni demuestran una mejora concluyente frente a las bases. Se verifican 7.078 predicciones externas; la reserva sigue sin evaluar.
+
 La auditoría se verificó con Python 3.11.8 y las versiones de `requirements.txt`. Desde la raíz del repositorio:
 
 ```powershell
@@ -70,12 +72,17 @@ python -m venv .venv
 .\.venv\Scripts\python.exe -m src.train
 .\.venv\Scripts\python.exe -m src.verify
 .\.venv\Scripts\python.exe -m src.baseline_report
+.\.venv\Scripts\python.exe -m src.optimize
+.\.venv\Scripts\python.exe -c "from src.optimize import verify; print(verify())"
+.\.venv\Scripts\python.exe -m src.optimization_report
 .\.venv\Scripts\python.exe -m unittest discover -s tests -v
 ```
 
-En otros sistemas usar `.venv/bin/python`. La auditoría genera `results/metrics/data_audit.json`. El EDA genera `results/metrics/eda.json`, siete figuras y `docs/analisis_datos.md`; editar la plantilla en `src/eda.py` si se modifica esa documentación. La auditoría de preprocesamiento genera `results/metrics/preprocessing_audit.json`. El entrenamiento guarda predicciones OOF, registros y métricas en `results/metrics/baseline_*`; el reporte y sus tres gráficos se generan con `src.baseline_report`. Las 44 pruebas cubren datos, transformaciones, métricas y contratos de modelos; no certifican todavía la interfaz ni la validez institucional. Las pruebas de resultados guardados requieren esos archivos, incluidos en el repositorio o regenerados con `src.train`.
+En otros sistemas usar `.venv/bin/python`. La auditoría genera `results/metrics/data_audit.json`. El EDA genera `results/metrics/eda.json`, siete figuras y `docs/analisis_datos.md`; editar la plantilla en `src/eda.py` si se modifica esa documentación. La auditoría de preprocesamiento genera `results/metrics/preprocessing_audit.json`. El entrenamiento guarda predicciones OOF, registros y métricas en `results/metrics/baseline_*`; el reporte y sus tres gráficos se generan con `src.baseline_report`.
 
-Para ejecutar un notebook sin una interfaz Jupyter, desde la raíz del repositorio (cambiar el nombre por `02_preprocesamiento.ipynb` o `03_modelado.ipynb` para los siguientes):
+La optimización genera `results/metrics/optimization_*`; `src.optimization_report` genera cinco figuras y la sección de resultados de `docs/optimizacion.md`. Las 51 pruebas cubren datos, transformaciones, métricas, contratos de modelos y selección anidada; no certifican todavía la interfaz ni la validez institucional. Las pruebas de resultados guardados requieren esos archivos, incluidos en el repositorio o regenerados con `src.train` y `src.optimize`.
+
+Para ejecutar un notebook sin una interfaz Jupyter, desde la raíz del repositorio (cambiar el nombre por `02_preprocesamiento.ipynb`, `03_modelado.ipynb` o `04_optimizacion.ipynb` para los siguientes). El notebook 04 verifica resultados guardados por defecto; permite repetir la búsqueda con `RETRAIN=True`:
 
 ```powershell
 .\.venv\Scripts\python.exe -c "import nbformat; from nbclient import NotebookClient; p='notebooks/01_exploracion.ipynb'; n=nbformat.read(p, as_version=4); NotebookClient(n, timeout=180, kernel_name='python3').execute(); nbformat.write(n,p)"

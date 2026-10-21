@@ -1,6 +1,6 @@
 # Arquitectura del sistema
 
-Estado: carga, preprocesamiento y modelos base implementados y auditados.
+Estado: carga, preprocesamiento, modelos base y optimizacion anidada implementados y auditados.
 La seleccion del clasificador final, la aplicacion y su integracion estan pendientes.
 
 ## Flujo de desarrollo implementado
@@ -102,8 +102,17 @@ metricas, graficos, definiciones, diagnostico y limitaciones. Los resultados
 principales son medias de folds; las matrices de confusion usan OOF agrupadas.
 No deben confundirse esas dos formas de agregacion.
 
-El diagnostico orienta la fase siguiente: tratar sobreajuste de RF y sesgo alto
-o senal limitada de la regresion. No hay modelo definitivo guardado todavia.
+El diagnostico oriento dos experimentos: limitar profundidad y hoja minima de
+RF, y expandir las cuatro variables numericas de LR a 14 terminos de grado 2.
+La expansion se aplica despues de imputar y antes de escalar, sin multiplicar
+codigos categoricos. Las dimensiones anteriores corresponden al esquema base.
+
+`src/optimize.py` selecciona parametros con tres folds internos por cada uno
+de los cinco folds externos. Cada ajuste vuelve a aprender el pipeline solo
+con entrenamiento interno. Su funcion `verify()` audita seleccion, particiones
+y metricas externas desde predicciones guardadas. El [protocolo y los resultados](optimizacion.md)
+incluyen sensibilidad descriptiva de hiperparametros. No hay modelo definitivo
+guardado todavia.
 
 ## Integracion final pendiente
 
