@@ -1,0 +1,9 @@
+{
+  "version": "2026-10-21-v1",
+  "model": "LR_base",
+  "seeds": [71, 172, 273],
+  "max_f1_drop": 0.03,
+  "max_coverage_drop": 0.05,
+  "scenarios": ["clean", "missing10", "missing30", "grade_noise", "grades_absent", "course_unseen", "grade_shift", "dropout50", "train_under35"],
+  "test_usage": "none"
+}
