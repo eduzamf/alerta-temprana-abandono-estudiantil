@@ -9,7 +9,7 @@ from sklearn.compose import ColumnTransformer
 from sklearn.impute import SimpleImputer
 from sklearn.model_selection import StratifiedKFold, train_test_split
 from sklearn.pipeline import Pipeline
-from sklearn.preprocessing import OneHotEncoder, StandardScaler
+from sklearn.preprocessing import OneHotEncoder, PolynomialFeatures, StandardScaler
 
 ROOT = Path(__file__).resolve().parents[1]
 DATA_SHA256 = "3ef126de5cefff26eb11fbb4237f1a1401cb64b488e2f1d598c23cedeb4c45ae"
@@ -55,17 +55,20 @@ def select_predictors(frame):
     return selected
 
 
-def build_preprocessor(min_frequency=None):
+def build_preprocessor(min_frequency=None, numeric_degree=1):
     """Return an unfitted clone-compatible transformer matching the baseline.
 
     Fit independently on each training fold. Validation and final test must use
     transform only. Unknown category codes map to zeros in their one-hot block;
     this prevents an exception, but does not establish validity for new groups.
     """
-    numeric = Pipeline([
-        ("impute", SimpleImputer(strategy="median")),
-        ("scale", StandardScaler()),
-    ])
+    if numeric_degree not in (1, 2):
+        raise ValueError("Supported numeric degrees: 1 or 2")
+    numeric_steps = [("impute", SimpleImputer(strategy="median"))]
+    if numeric_degree == 2:
+        numeric_steps.append(("polynomial", PolynomialFeatures(degree=2, include_bias=False)))
+    numeric_steps.append(("scale", StandardScaler()))
+    numeric = Pipeline(numeric_steps)
     categorical = Pipeline([
         ("impute", SimpleImputer(strategy="most_frequent")),
         ("encode", OneHotEncoder(
