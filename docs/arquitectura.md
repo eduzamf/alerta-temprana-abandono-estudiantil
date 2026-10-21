@@ -1,7 +1,7 @@
 # Arquitectura del sistema
 
-Estado: carga, seleccion y preprocesamiento implementados y auditados. El
-clasificador final, la aplicacion y su integracion estan pendientes.
+Estado: carga, preprocesamiento y modelos base implementados y auditados.
+La seleccion del clasificador final, la aplicacion y su integracion estan pendientes.
 
 ## Flujo de desarrollo implementado
 
@@ -79,7 +79,35 @@ extremos en validacion. No son pruebas de rendimiento de clasificadores.
 
 ## Integracion prevista
 
-El clasificador y este transformador se integraran en un mismo Pipeline para
+Los modelos base ya se integran con el preprocesamiento en un Pipeline en
+`src/model.py`. El entrenamiento por folds se ejecuta mediante `src/train.py`.
+El calculo de metricas se centraliza en `src/evaluate.py`; `src/verify.py`
+recalcula las metricas de validacion desde las predicciones guardadas.
+
+## Modelos base implementados
+
+| Modelo | Configuracion de referencia | Funcion |
+|---|---|---|
+| Dummy prior | Frecuencias de clase del entrenamiento | Comparacion sin capacidad discriminativa |
+| Regresion logistica | C=1, balanced, max_iter=3000, semilla 42 | Referencia lineal |
+| Random Forest | 200 arboles, min_samples_leaf=3, max_depth=None, max_features=sqrt, balanced, semilla 42 | Referencia no lineal |
+
+Los parametros completos se registran por fold. Se conservan las configuraciones
+historicas; no se optimizan ni se seleccionan usando la reserva.
+Las probabilidades de salida siguen el orden Dropout, Enrolled, Graduate.
+Son puntuaciones del modelo, no riesgos calibrados demostrados.
+
+El [reporte de modelos base](../results/reports/baseline_report.md) contiene
+metricas, graficos, definiciones, diagnostico y limitaciones. Los resultados
+principales son medias de folds; las matrices de confusion usan OOF agrupadas.
+No deben confundirse esas dos formas de agregacion.
+
+El diagnostico orienta la fase siguiente: tratar sobreajuste de RF y sesgo alto
+o senal limitada de la regresion. No hay modelo definitivo guardado todavia.
+
+## Integracion final pendiente
+
+El clasificador seleccionado y este transformador se mantendran en un Pipeline para
 que cada ajuste interno de hiperparametros vuelva a aprender el preprocesamiento
 solo con su entrenamiento. No se hara validacion cruzada sobre matrices ajustadas
 con todo desarrollo. El entrenamiento definitivo se realizara despues de fijar

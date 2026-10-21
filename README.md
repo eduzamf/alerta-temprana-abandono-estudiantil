@@ -4,7 +4,7 @@ Prototipo académico de inteligencia artificial para identificar estudiantes que
 
 **Autor:** Carlos Zambrano Figueroa. **Grupo:** 11, trabajo individual.
 
-**Estado:** datos, análisis exploratorio y preprocesamiento por fold incorporados y verificados. Todavía no hay una aplicación ejecutable ni un modelo final incorporado. La documentación restante está en desarrollo.
+**Estado:** datos, EDA, preprocesamiento y modelos base reproducidos. Todavía no hay una aplicación ejecutable ni un modelo final seleccionado. La optimización y la documentación restante están en desarrollo.
 
 ## Contenido
 
@@ -36,7 +36,7 @@ results/metrics/       Métricas verificables
 results/reports/       Reportes derivados
 ```
 
-Los archivos `.gitkeep` permiten registrar carpetas inicialmente vacías. La carga, el EDA y el preprocesamiento están implementados, con 30 pruebas automatizadas. Los notebooks `01_exploracion.ipynb` y `02_preprocesamiento.ipynb` están ejecutados; los restantes y los módulos de modelado e interfaz siguen pendientes.
+Los archivos `.gitkeep` permiten registrar carpetas inicialmente vacías. La carga, el EDA, el preprocesamiento y los modelos base están implementados, con 44 pruebas automatizadas. Los notebooks 01, 02 y 03 están ejecutados; la optimización, evaluación final e interfaz siguen pendientes.
 
 ## Documentación
 
@@ -55,7 +55,7 @@ La auditoría confirma 4.424 filas: 3.539 de desarrollo y 885 de reserva; se con
 
 El [análisis exploratorio](docs/analisis_datos.md) incluye siete figuras y tablas sobre clases, distribuciones, valores atípicos, correlaciones, categorías y subgrupos. Utiliza únicamente desarrollo. La representación demográfica no se presenta como una evaluación de equidad del modelo.
 
-Los resultados históricos se integrarán después de verificar sus archivos de origen y particiones. No se publican cifras finales todavía. Se distinguirán validación, optimización y prueba final, preservando esta última hasta fijar el protocolo.
+Los modelos base reproducen los resultados históricos: F1 macro medio de 0,51584 para regresión logística y 0,51996 para Random Forest, frente a 0,22201 de Dummy prior. Son cifras de validación, no de prueba final. [Resultados, cobertura, diagnóstico y gráficos](results/reports/baseline_report.md). La reserva permanece sin evaluar; no se ha seleccionado el modelo final.
 
 ## Instalación y pruebas
 
@@ -67,12 +67,15 @@ python -m venv .venv
 .\.venv\Scripts\python.exe -m src.data_processing
 .\.venv\Scripts\python.exe -m src.eda
 .\.venv\Scripts\python.exe -m src.preprocessing_audit
+.\.venv\Scripts\python.exe -m src.train
+.\.venv\Scripts\python.exe -m src.verify
+.\.venv\Scripts\python.exe -m src.baseline_report
 .\.venv\Scripts\python.exe -m unittest discover -s tests -v
 ```
 
-En otros sistemas usar `.venv/bin/python`. La auditoría genera `results/metrics/data_audit.json`. El EDA genera `results/metrics/eda.json`, las siete figuras y `docs/analisis_datos.md`; editar la plantilla en `src/eda.py` si se modifica esa documentación, porque se regenera. La auditoría de preprocesamiento genera `results/metrics/preprocessing_audit.json`. Las 30 pruebas comprueban datos, particiones, EDA y transformaciones, no certifican todavía modelos ni interfaz. Las dependencias de la aplicación se incorporarán cuando se implemente y verifique.
+En otros sistemas usar `.venv/bin/python`. La auditoría genera `results/metrics/data_audit.json`. El EDA genera `results/metrics/eda.json`, siete figuras y `docs/analisis_datos.md`; editar la plantilla en `src/eda.py` si se modifica esa documentación. La auditoría de preprocesamiento genera `results/metrics/preprocessing_audit.json`. El entrenamiento guarda predicciones OOF, registros y métricas en `results/metrics/baseline_*`; el reporte y sus tres gráficos se generan con `src.baseline_report`. Las 44 pruebas cubren datos, transformaciones, métricas y contratos de modelos; no certifican todavía la interfaz ni la validez institucional. Las pruebas de resultados guardados requieren esos archivos, incluidos en el repositorio o regenerados con `src.train`.
 
-Para ejecutar un notebook sin una interfaz Jupyter, desde la raíz del repositorio (cambiar el nombre por `02_preprocesamiento.ipynb` para el segundo):
+Para ejecutar un notebook sin una interfaz Jupyter, desde la raíz del repositorio (cambiar el nombre por `02_preprocesamiento.ipynb` o `03_modelado.ipynb` para los siguientes):
 
 ```powershell
 .\.venv\Scripts\python.exe -c "import nbformat; from nbclient import NotebookClient; p='notebooks/01_exploracion.ipynb'; n=nbformat.read(p, as_version=4); NotebookClient(n, timeout=180, kernel_name='python3').execute(); nbformat.write(n,p)"
