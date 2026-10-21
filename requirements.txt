@@ -1,0 +1,2 @@
+# Pendiente: fijar versiones del entorno final tras integrar y probar el codigo.
+# Este archivo no instala todavia las dependencias necesarias para ejecutar el proyecto.

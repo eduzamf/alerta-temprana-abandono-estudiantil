@@ -218,3 +218,18 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Project privacy and local-only files
+.env.*
+!.env.example
+*.pem
+*.key
+/data/private/
+/app/uploads/
+/private/
+/tmp/
+~$*
+*.mp4
+*.MP4
+*.mkv
+*.mov
