@@ -49,7 +49,7 @@ results/metrics/       Métricas verificables
 results/reports/       Reportes derivados
 ```
 
-Los archivos `.gitkeep` permiten registrar carpetas inicialmente vacías. Los experimentos, el artefacto, la evaluación final y la aplicación local están implementados, con 90 pruebas Python y un recorrido automatizado de navegador. Los cinco notebooks están ejecutados. La interfaz usa el modelo fijo, sin entrenar con los archivos cargados.
+Los archivos `.gitkeep` permiten registrar carpetas inicialmente vacías. Los experimentos, el artefacto, la evaluación final y la aplicación local están implementados, con 93 pruebas Python y un recorrido automatizado de navegador. Los cinco notebooks están ejecutados. La interfaz usa el modelo fijo, sin entrenar con los archivos cargados.
 
 ## Documentación
 
@@ -108,7 +108,11 @@ python -m venv .venv
 
 En otros sistemas usar `.venv/bin/python`. La auditoría genera `results/metrics/data_audit.json`. El EDA genera `results/metrics/eda.json`, siete figuras y `docs/analisis_datos.md`; editar la plantilla en `src/eda.py` si se modifica esa documentación. La auditoría de preprocesamiento genera `results/metrics/preprocessing_audit.json`. El entrenamiento guarda predicciones OOF, registros y métricas en `results/metrics/baseline_*`; el reporte y sus tres gráficos se generan con `src.baseline_report`.
 
-La optimización genera `results/metrics/optimization_*`; `src.optimization_report` genera cinco figuras y la sección de resultados de `docs/optimizacion.md`. La auditoría genera `results/metrics/fairness_*` y su reporte. La robustez genera `results/metrics/stress_*`, un gráfico y los resultados en `docs/robustez.md`. Las 90 pruebas cubren también el artefacto, la evaluación final y los controles de la aplicación; no certifican seguridad ni validez institucional. Los resultados de desarrollo se regeneran con `src.train`, `src.optimize`, `src.fairness` y `src.stress`. `src.finalize` verifica el modelo existente sin sobrescribirlo. `src.final_evaluation` verifica la prueba guardada; no vuelve a predecir si ya existe.
+La optimización genera `results/metrics/optimization_*`; `src.optimization_report` genera cinco figuras y la sección de resultados de `docs/optimizacion.md`. La auditoría genera `results/metrics/fairness_*` y su reporte. La robustez genera `results/metrics/stress_*`, un gráfico y los resultados en `docs/robustez.md`. Las 93 pruebas cubren también el artefacto, la evaluación final y los controles de la aplicación; no certifican seguridad ni validez institucional. Los resultados de desarrollo se regeneran con `src.train`, `src.optimize`, `src.fairness` y `src.stress`. `src.finalize` verifica el modelo existente sin sobrescribirlo. `src.final_evaluation` verifica la prueba guardada; no vuelve a predecir si ya existe.
+
+Los [tres casos de demostración](data/examples/README.md) permiten mostrar un lote
+válido, una nota ausente admitida con advertencia y un código inválido rechazado.
+Se regeneran con `python -m src.demo_cases` y se descargan desde la aplicación.
 
 Para las pruebas opcionales de navegador, instalar Node, Chrome y las dependencias
 de desarrollo con `npm install`; iniciar el servidor y ejecutar `npm run test:browser`.

@@ -121,6 +121,8 @@ function render() {
 }
 function showDetail(row) {
   $("#detail-title").textContent = row.id + " · fila " + row.source_row;
+  $("#detail-predicted").textContent = classLabels[row.predicted];
+  $("#detail-priority").textContent = row.selected ? "Priorizado" : "Fuera del cupo";
   $("#detail-scores").replaceChildren();
   for (const [label, score] of Object.entries(row.scores)) {
     const item = node("div");
@@ -129,7 +131,7 @@ function showDetail(row) {
   }
   $("#detail-features").replaceChildren();
   for (const [key, value] of Object.entries(row.features)) {
-    $("#detail-features").append(node("dt", labels[key] || key), node("dd", value === null ? "Vacío · imputado" : number(value, Number.isInteger(value) ? 0 : 2)));
+    $("#detail-features").append(node("dt", labels[key] || key), node("dd", value === null ? "Vacío · imputado" : Number.isInteger(value) ? String(value) : number(value, 2)));
   }
   $("#detail").showModal();
 }

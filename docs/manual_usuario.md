@@ -35,6 +35,8 @@ persistente de intervenciones.
 3. Activar Solo priorizados o buscar por codigo CASO. Estos filtros no recalculan
    el cupo. La paginacion muestra hasta 15 casos por pagina.
 4. Abrir la flecha de un caso para ver las tres puntuaciones y las 18 entradas.
+   El detalle distingue Clase predicha (la salida de mayor puntuacion) de
+   Prioridad de revision (pertenencia al cupo del 20% del lote).
    Cerrar con la X o Escape. Las celdas vacias se identifican como imputadas;
    no se modifica manualmente el modelo.
 5. Usar el icono de descarga para exportar **todo el lote**, no solo la pagina
@@ -50,6 +52,11 @@ entre 0 y 1, **no una probabilidad calibrada**. Estar fuera del cupo no descarta
 necesidad de apoyo; debe existir una via abierta de solicitud independiente.
 
 ## Preparacion y carga de CSV
+
+![Detalle de clase predicha y prioridad](images/app_detail.png)
+
+La clase no es un diagnostico ni confirma el desenlace. El ranking y la clase
+son salidas distintas: la primera depende del resto del lote y del cupo.
 
 En Datos de entrada se puede descargar la plantilla de cabeceras o una muestra
 publica completa para comprobar el flujo. La plantilla vacia no se puede analizar
@@ -80,6 +87,10 @@ que se analice un lote valido. Los mensajes de advertencia de imputacion o rango
 no constituyen una garantia de validez.
 
 ## Evidencia del modelo
+
+Acerca del modelo describe la regresion multiclase, sus 18 entradas y el
+preprocesamiento. Distingue el entrenamiento inicial de la inferencia con
+archivos nuevos, que no modifica el modelo.
 
 La segunda seccion presenta la prueba final historica: F1 macro 0,49366,
 cobertura 40,14%, 114 abandonos detectados de 284. Son resultados de 885 casos
@@ -132,7 +143,7 @@ a estudiantes; las salvaguardas institucionales descritas son propuestas.
 
 ## Verificacion
 
-90 pruebas Python y un recorrido de navegador con Playwright comprueban muestra,
+93 pruebas Python y un recorrido de navegador con Playwright comprueban muestra,
 carga valida, rechazo de errores, concordancia con el modelo, filtros, paginacion,
 detalle, descarga, evidencia y ausencia de desbordamiento de pagina en movil.
 
@@ -147,3 +158,19 @@ Las dependencias de navegador se instalan con npm install desde la raiz
 Permite APP_URL y BROWSER_CHANNEL para cambiar direccion o navegador compatible.
 Las capturas de este manual proceden de ese recorrido. Para incidencias tecnicas
 del prototipo, registrar un issue en el repositorio sin adjuntar datos personales.
+
+## Tres casos para la grabacion
+
+Los archivos estan en [data/examples](../data/examples/README.md) y en los enlaces
+de Casos de demostracion de Datos de entrada. Se reproducen con
+`python -m src.demo_cases`.
+
+| Caso | Resultado esperado | Evidencia en pantalla |
+|---|---|---|
+| Lote valido | 40 registros, 8 priorizados | Lista, detalle, clase y puntuaciones |
+| Una nota vacia | Lote aceptado con 1 celda faltante | Advertencia de imputacion |
+| Carrera invalida | Rechazo por codigo Course desconocido | Mensaje, lista vacia y exportacion deshabilitada |
+
+La ausencia de nota y el codigo invalido fueron introducidos para la
+demostracion. No son nuevos datos de evaluacion ni respaldan cambios en F1.
+La grabacion debe mostrar resultados reales de la interfaz y no una simulacion.

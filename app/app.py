@@ -9,6 +9,7 @@ from werkzeug.exceptions import HTTPException
 from src.data_processing import ROOT
 from src.inference import InputError, analyze, context, demo, parse_csv, template_csv
 from src.data_processing import FEATURES, CATEGORICAL
+from src.demo_cases import FILES, case_frame
 
 app = Flask(__name__, static_folder="assets", template_folder="templates")
 app.config.update(MAX_CONTENT_LENGTH=256000, MAX_FORM_MEMORY_SIZE=256000,
@@ -75,6 +76,14 @@ def sample():
 @app.get("/evidence/confusion.png")
 def confusion():
     return send_file(ROOT / "results/figures/final_test_confusion.png")
+
+
+@app.get("/api/sample/<kind>")
+def demonstration_file(kind):
+    if kind not in FILES:
+        return jsonify(error="Caso de demostracion no disponible."), 404
+    return Response(case_frame(kind).to_csv(index=False), mimetype="text/csv",
+                    headers={"Content-Disposition": f"attachment; filename={FILES[kind]}"})
 
 
 @app.post("/api/analyze")

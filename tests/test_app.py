@@ -9,6 +9,7 @@ from app.app import app
 from src.data_processing import ROOT
 from src.finalize import MODEL, digest
 from src.inference import InputError, analyze, context, demo, parse_csv, validate
+from src.demo_cases import FILES, case_frame
 
 
 class AppTests(unittest.TestCase):
@@ -105,6 +106,25 @@ class AppTests(unittest.TestCase):
             response.close()
         self.assertEqual(self.client.get("/").headers["X-Frame-Options"], "DENY")
         self.assertEqual(self.client.get("/", base_url="http://evil.example").status_code, 400)
+
+    def test_demo_case_files_reproduce(self):
+        for kind, filename in FILES.items():
+            frame = pd.read_csv(ROOT / "data/examples" / filename)
+            pd.testing.assert_frame_equal(frame, case_frame(kind).reset_index(drop=True), check_dtype=False)
+
+    def test_demo_missing_case_accepted(self):
+        response = self.client.get("/api/sample/missing")
+        self.assertEqual(response.status_code, 200)
+        result = self.post(response.data)
+        self.assertEqual(result.status_code, 200)
+        self.assertEqual(result.json["missing_cells"], 1)
+        self.assertTrue(result.json["warnings"])
+
+    def test_demo_invalid_case_rejected(self):
+        response = self.client.get("/api/sample/invalid")
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(self.post(response.data).status_code, 400)
+        self.assertEqual(self.client.get("/api/sample/unknown").status_code, 404)
 
 
 if __name__ == "__main__":
