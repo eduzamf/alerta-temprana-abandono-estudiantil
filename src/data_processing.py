@@ -5,7 +5,11 @@ from pathlib import Path
 
 import numpy as np
 import pandas as pd
+from sklearn.compose import ColumnTransformer
+from sklearn.impute import SimpleImputer
 from sklearn.model_selection import StratifiedKFold, train_test_split
+from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import OneHotEncoder, StandardScaler
 
 ROOT = Path(__file__).resolve().parents[1]
 DATA_SHA256 = "3ef126de5cefff26eb11fbb4237f1a1401cb64b488e2f1d598c23cedeb4c45ae"
@@ -24,6 +28,55 @@ NUMERIC = [
 ]
 CATEGORICAL = [name for name in FEATURES if name not in NUMERIC]
 LABELS = ["Dropout", "Enrolled", "Graduate"]
+
+
+def select_predictors(frame):
+    """Select the fixed feature contract, preserving missing values and row order.
+
+    This validates structure and numeric storage, not every allowed domain code.
+    Extra columns (including Target) never become predictors. Call before fitting
+    or predicting; do not pass the complete audit frame to the model.
+    """
+    if not isinstance(frame, pd.DataFrame):
+        raise TypeError("Predictors must be provided as a pandas DataFrame")
+    if frame.columns.duplicated().any():
+        raise ValueError("Duplicate column names are not allowed")
+    missing = [column for column in FEATURES if column not in frame.columns]
+    if missing:
+        raise ValueError(f"Missing required predictors: {', '.join(missing)}")
+    if frame.empty:
+        raise ValueError("At least one observation is required")
+    selected = frame.loc[:, FEATURES].copy()
+    for column in FEATURES:
+        if not pd.api.types.is_numeric_dtype(selected[column]):
+            raise ValueError(f"Expected numeric values or category codes: {column}")
+    if np.isinf(selected.to_numpy(dtype=float, na_value=np.nan)).any():
+        raise ValueError("Infinite predictor values are not supported")
+    return selected
+
+
+def build_preprocessor(min_frequency=None):
+    """Return an unfitted clone-compatible transformer matching the baseline.
+
+    Fit independently on each training fold. Validation and final test must use
+    transform only. Unknown category codes map to zeros in their one-hot block;
+    this prevents an exception, but does not establish validity for new groups.
+    """
+    numeric = Pipeline([
+        ("impute", SimpleImputer(strategy="median")),
+        ("scale", StandardScaler()),
+    ])
+    categorical = Pipeline([
+        ("impute", SimpleImputer(strategy="most_frequent")),
+        ("encode", OneHotEncoder(
+            handle_unknown="ignore", sparse_output=False,
+            min_frequency=min_frequency,
+        )),
+    ])
+    return ColumnTransformer([
+        ("numeric", numeric, NUMERIC),
+        ("categorical", categorical, CATEGORICAL),
+    ], remainder="drop")
 
 
 def verify_hash(path, expected):

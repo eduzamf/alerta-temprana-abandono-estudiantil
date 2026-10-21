@@ -4,7 +4,7 @@ Prototipo académico de inteligencia artificial para identificar estudiantes que
 
 **Autor:** Carlos Zambrano Figueroa. **Grupo:** 11, trabajo individual.
 
-**Estado:** datos, particiones y análisis exploratorio incorporados y verificados. Todavía no hay una aplicación ejecutable ni un modelo final incorporado. La documentación restante está en desarrollo.
+**Estado:** datos, análisis exploratorio y preprocesamiento por fold incorporados y verificados. Todavía no hay una aplicación ejecutable ni un modelo final incorporado. La documentación restante está en desarrollo.
 
 ## Contenido
 
@@ -36,7 +36,7 @@ results/metrics/       Métricas verificables
 results/reports/       Reportes derivados
 ```
 
-Los archivos `.gitkeep` permiten registrar carpetas inicialmente vacías. El cargador y el análisis exploratorio están implementados, con 16 pruebas automatizadas. `01_exploracion.ipynb` contiene el análisis ejecutado; los notebooks restantes y los módulos de modelado e interfaz siguen pendientes.
+Los archivos `.gitkeep` permiten registrar carpetas inicialmente vacías. La carga, el EDA y el preprocesamiento están implementados, con 30 pruebas automatizadas. Los notebooks `01_exploracion.ipynb` y `02_preprocesamiento.ipynb` están ejecutados; los restantes y los módulos de modelado e interfaz siguen pendientes.
 
 ## Documentación
 
@@ -66,12 +66,13 @@ python -m venv .venv
 .\.venv\Scripts\python.exe -m pip install -r requirements.txt
 .\.venv\Scripts\python.exe -m src.data_processing
 .\.venv\Scripts\python.exe -m src.eda
+.\.venv\Scripts\python.exe -m src.preprocessing_audit
 .\.venv\Scripts\python.exe -m unittest discover -s tests -v
 ```
 
-En otros sistemas usar `.venv/bin/python`. La auditoría genera `results/metrics/data_audit.json`. El EDA genera `results/metrics/eda.json`, las siete figuras y `docs/analisis_datos.md`; editar la plantilla en `src/eda.py` si se modifica esa documentación, porque se regenera. Las 16 pruebas comprueban datos, particiones y consistencia del análisis, no certifican todavía modelos ni interfaz. Las dependencias de la aplicación se incorporarán cuando se implemente y verifique.
+En otros sistemas usar `.venv/bin/python`. La auditoría genera `results/metrics/data_audit.json`. El EDA genera `results/metrics/eda.json`, las siete figuras y `docs/analisis_datos.md`; editar la plantilla en `src/eda.py` si se modifica esa documentación, porque se regenera. La auditoría de preprocesamiento genera `results/metrics/preprocessing_audit.json`. Las 30 pruebas comprueban datos, particiones, EDA y transformaciones, no certifican todavía modelos ni interfaz. Las dependencias de la aplicación se incorporarán cuando se implemente y verifique.
 
-Para ejecutar el notebook sin una interfaz Jupyter, desde la raíz del repositorio:
+Para ejecutar un notebook sin una interfaz Jupyter, desde la raíz del repositorio (cambiar el nombre por `02_preprocesamiento.ipynb` para el segundo):
 
 ```powershell
 .\.venv\Scripts\python.exe -c "import nbformat; from nbclient import NotebookClient; p='notebooks/01_exploracion.ipynb'; n=nbformat.read(p, as_version=4); NotebookClient(n, timeout=180, kernel_name='python3').execute(); nbformat.write(n,p)"
