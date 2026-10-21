@@ -1,0 +1,3 @@
+# Preserve source bytes so hashes remain identical across platforms.
+data/raw/data.csv -text whitespace=cr-at-eol
+data/processed/particiones.csv -text whitespace=cr-at-eol

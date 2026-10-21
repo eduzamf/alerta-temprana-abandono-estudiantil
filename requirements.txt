@@ -1,2 +1,7 @@
-# Pendiente: fijar versiones del entorno final tras integrar y probar el codigo.
-# Este archivo no instala todavia las dependencias necesarias para ejecutar el proyecto.
+# Verified data-audit environment; app/model dependencies will be added when tested.
+numpy==1.26.4
+pandas==2.2.3
+scikit-learn==1.6.1
+scipy==1.14.0
+joblib==1.4.2
+threadpoolctl==3.5.0
