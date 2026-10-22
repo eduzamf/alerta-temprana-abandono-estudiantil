@@ -1,6 +1,7 @@
-"""Local-only interface for the frozen academic prototype."""
+"""Local or hosted demonstration of the frozen academic prototype."""
 import argparse
 import json
+import os
 from pathlib import Path
 
 from flask import Flask, jsonify, render_template, request, Response, send_file
@@ -10,23 +11,29 @@ from src.data_processing import ROOT
 from src.inference import InputError, analyze, context, demo, parse_csv, template_csv
 from src.data_processing import FEATURES, CATEGORICAL
 from src.demo_cases import FILES, case_frame
+from src.finalize import MODEL, digest
+from app.deployment import deployment_config
 
 app = Flask(__name__, static_folder="assets", template_folder="templates")
 app.config.update(MAX_CONTENT_LENGTH=256000, MAX_FORM_MEMORY_SIZE=256000,
                   MAX_FORM_PARTS=2, TRUSTED_HOSTS=["127.0.0.1", "localhost"])
+app.config.update(deployment_config(os.environ))
 
 
 @app.before_request
-def local_request():
+def same_origin_request():
+    expected_origin = app.config["PUBLIC_ORIGIN"] or request.host_url.rstrip("/")
     if request.method == "POST" and (
         request.headers.get("X-Requested-With") != "local-demo"
-        or (request.headers.get("Origin") and request.headers["Origin"] != request.host_url.rstrip("/"))
+        or (request.headers.get("Origin") and request.headers["Origin"] != expected_origin)
     ):
         return jsonify(error="Solicitud no autorizada desde otro origen."), 403
 
 
 @app.after_request
 def security_headers(response):
+    if app.config["PUBLIC_ORIGIN"]:
+        response.headers["Strict-Transport-Security"] = "max-age=31536000"
     response.headers["Cache-Control"] = "no-store"
     response.headers["X-Content-Type-Options"] = "nosniff"
     response.headers["X-Frame-Options"] = "DENY"
@@ -40,7 +47,16 @@ def security_headers(response):
 
 @app.get("/")
 def index():
-    return render_template("index.html")
+    return render_template("index.html", deployment_label=app.config["DEPLOYMENT_LABEL"])
+
+
+@app.get("/health")
+def health():
+    """Readiness requires a loaded artifact with the evaluated fingerprint."""
+    metadata = context()[1]
+    if digest(MODEL) != metadata["model_sha256"]:
+        return jsonify(status="unavailable"), 503
+    return jsonify(status="ok", model="LR_base v1")
 
 
 @app.get("/api/evidence")

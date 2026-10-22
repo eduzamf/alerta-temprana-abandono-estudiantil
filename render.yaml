@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: alerta-temprana-abandono-estudiantil
+    runtime: python
+    plan: free
+    branch: main
+    buildCommand: pip install -r requirements-render.txt
+    startCommand: gunicorn app.wsgi:app --bind 0.0.0.0:$PORT --workers 1 --threads 2 --timeout 120 --access-logfile -
+    healthCheckPath: /health
+    envVars:
+      - key: OMP_NUM_THREADS
+        value: "1"
+      - key: OPENBLAS_NUM_THREADS
+        value: "1"
+      - key: MKL_NUM_THREADS
+        value: "1"

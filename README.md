@@ -72,6 +72,7 @@ Los experimentos, el artefacto, la evaluación final y la aplicación local est�
 - [Consideraciones éticas](docs/consideraciones_eticas.md)
 - [Manual de usuario](docs/manual_usuario.md)
 - [Verificacion desde una copia limpia](docs/verificacion_tecnica.md)
+- [Despliegue remoto y controles](docs/despliegue.md)
 
 ## Datos y resultados
 
