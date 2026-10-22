@@ -2,8 +2,13 @@
 
 La indicacion docente del 22/10/2026 exige ejecucion remota. Este despliegue
 amplia el alcance de la demo local, no convierte el sistema en un servicio
-institucional ni cambia el modelo. La URL verificada se publica en el README
-cuando el servicio este disponible.
+institucional ni cambia el modelo.
+
+**Aplicacion publica:** https://alerta-temprana-abandono-estudiantil.onrender.com
+
+Despliegue verificado el 22/10/2026, sin autenticacion de visitante, en Oregon,
+plan Free ($0/mes, 512 MB). Render resolvio Python 3.11.17. El despliegue inicial
+utiliza el commit a02bf75084073b5a492256e18eb28ca0f4999e9e.
 
 ## Configuracion reproducible
 
@@ -42,7 +47,25 @@ Los servicios gratuitos pueden suspenderse tras 15 minutos de inactividad;
 la siguiente visita los reactiva y puede tardar alrededor de un minuto.
 No se configuran solicitudes artificiales para evitar esa suspension.
 
-## Verificacion antes de compartir
+## Verificacion realizada
+
+El [registro remoto](../results/metrics/cloud_verification.json) confirma
+salud correcta, 40 casos y ocho priorizados, concordancia de las predicciones
+con el artefacto local y coincidencia de las metricas publicadas.
+La API acepta el CSV valido y el caso con una nota ausente (HTTP 200),
+rechaza la categoria invalida (400) y un origen ajeno (403).
+Se revisaron en el navegador el ranking y el detalle individual.
+Estas comprobaciones no son una nueva evaluacion predictiva ni un ensayo de carga.
+
+![Ranking en la aplicacion publica](images/app_cloud.png)
+
+Para repetir la verificacion funcional desde la raiz:
+
+```text
+python -m src.verify_cloud https://alerta-temprana-abandono-estudiantil.onrender.com
+```
+
+## Comprobacion antes de compartir
 
 Abrir el enlace HTTPS sin sesion de Render; comprobar /health, 40 casos y
 ocho priorizados en la muestra; cargar el lote valido, el caso con nota

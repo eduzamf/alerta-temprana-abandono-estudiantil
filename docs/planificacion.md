@@ -46,7 +46,11 @@ LR/RF, optimizacion anidada, subgrupos, robustez, artefacto fijo y demo Flask.
 Excluye datos privados, operacion institucional, sanciones, admisiones,
 asignacion automatica de beneficios y eficacia causal.
 
-Flask sustituyo a Streamlit conservando el despliegue local previsto.
+Flask sustituyo a Streamlit conservando inicialmente el despliegue local previsto.
+El 22/10/2026, por indicacion docente, se incorporo la demo publica en Render
+Free. Se verifico su inferencia sin cambiar el modelo, las particiones ni las
+metas SMART. Este cambio no implica operacion institucional.
+Ver [despliegue remoto](despliegue.md).
 Se priorizaron LR y RF con sus variantes. HistGradientBoosting, la regla de
 nota de admision, la ablacion de atributos personales y los cupos 10/30%
 propuestos inicialmente no se presentan como experimentos realizados.

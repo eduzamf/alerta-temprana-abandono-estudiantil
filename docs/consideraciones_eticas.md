@@ -119,6 +119,12 @@ medidas propuestas; no se asigna el mismo nivel a todas.
 | R5 | Uso sancionador o etiquetado; alta, media | Advertencias, revision humana y prohibicion de usos en el alcance; institucion antes de adoptar | Baja como barrera tecnica: el codigo abierto puede modificarse; requiere gobernanza |
 | R6 | Interpretar puntuaciones como certezas; alta, media | Explicar escala, clases y resultados; interfaz y manual | Implementado; comprension por usuarios finales no medida |
 
+La demo publica en Render transmite los CSV al proveedor; solo admite uso con
+datos publicos o sinteticos. Aunque la app no persiste lotes, Render puede
+registrar metadatos de acceso. No se ha habilitado un tratamiento institucional
+de expedientes ni se certifica cumplimiento por desplegar mediante HTTPS.
+Ver [controles y limites del despliegue](despliegue.md).
+
 No se publican listas nominales de estudiantes. El ranking no decide ni
 ejecuta contactos, ayudas o sanciones. Las salvaguardas organizativas exigen
 responsables y procedimientos reales antes de un piloto.

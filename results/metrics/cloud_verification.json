@@ -1,0 +1,16 @@
+{
+  "verified_at_utc": "2026-10-22T15:26:20.515595+00:00",
+  "url": "https://alerta-temprana-abandono-estudiantil.onrender.com",
+  "authenticated": false,
+  "health": "ok",
+  "model_sha256": "028b9d7071eaa9549b2cfb64f177f34d2aaf5aeb645eb1f7b4af63b746d8c5f1",
+  "sample_rows": 40,
+  "prioritized": 8,
+  "local_predictions_match": true,
+  "valid_upload_status": 200,
+  "missing_upload_status": 200,
+  "invalid_upload_status": 400,
+  "foreign_origin_status": 403,
+  "published_metrics_match": true,
+  "scope": "Public API with development examples; not new performance evaluation"
+}

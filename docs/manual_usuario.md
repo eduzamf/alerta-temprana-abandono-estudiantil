@@ -1,4 +1,4 @@
-# Manual de la aplicacion local
+# Manual de la aplicacion
 
 ## Uso previsto
 
@@ -6,7 +6,17 @@ Demostracion academica de priorizacion para revision humana y apoyo voluntario.
 No usar con datos personales reales ni para sanciones, admisiones o asignacion
 automatica de beneficios. El modelo no esta validado para una institucion local.
 
-## Instalacion y arranque
+## Acceso por Internet
+
+Abrir https://alerta-temprana-abandono-estudiantil.onrender.com.
+No requiere instalacion ni cuenta. Tras inactividad, esperar alrededor de un
+minuto mientras el plan gratuito reactiva el servicio. La muestra y los
+controles son los mismos que en la version local.
+Los CSV se transmiten a Render: usar solo datos publicos o sinteticos.
+La plataforma puede registrar metadatos de acceso; no cargar expedientes reales.
+Consultar [despliegue y verificacion remota](despliegue.md).
+
+## Instalacion y arranque local opcional
 
 Desde la raiz del repositorio, con Python 3.11:
 
@@ -23,7 +33,7 @@ El servidor escucha exclusivamente en la interfaz local 127.0.0.1, sin debug.
 No se necesita Node para usar la aplicacion. En macOS/Linux usar .venv/bin/python.
 
 El servidor Flask incorporado es para demostracion local, no para publicacion
-en Internet. No hay autenticacion, gestion institucional de permisos ni registro
+en Internet; la version remota usa Gunicorn. No hay autenticacion, gestion institucional de permisos ni registro
 persistente de intervenciones.
 
 ## Recorrido de demostracion
@@ -181,7 +191,7 @@ Cada ejecucion sustituye ese registro de rendimiento, nunca las metricas finales
 
 ### Comprobaciones funcionales
 
-93 pruebas Python y un recorrido de navegador con Playwright comprueban muestra,
+99 pruebas Python y un recorrido de navegador con Playwright comprueban muestra,
 carga valida, rechazo de errores, concordancia con el modelo, filtros, paginacion,
 detalle, descarga, evidencia y ausencia de desbordamiento de pagina en movil.
 
@@ -213,9 +223,9 @@ gobernanza institucional antes de otro uso.
 mayor puntuacion entre tres salidas. El ranking usa solo abandono y depende
 del resto del lote; no aplica un umbral de riesgo individual.
 
-**Puede abrirla otra persona con mi enlace localhost?** No. Debe instalar su
-propia copia. No existe alojamiento publico del servicio; GitHub publica
-el codigo y la evidencia, no ejecuta esta aplicacion Flask.
+**Puede abrirla otra persona con mi enlace localhost?** No. Para compartir,
+usar https://alerta-temprana-abandono-estudiantil.onrender.com.
+Render ejecuta la aplicacion; GitHub publica el codigo y la evidencia.
 
 Soporte del prototipo: Carlos Zambrano Figueroa, Grupo 11, mediante
 [incidencias del repositorio](https://github.com/eduzamf/alerta-temprana-abandono-estudiantil/issues).

@@ -154,7 +154,7 @@ flowchart LR
     F --> G[Exportacion voluntaria CSV]
 ```
 
-El proceso solo escucha en 127.0.0.1. Se limita el CSV a 200 KB y 1.000 filas;
+En modo local el proceso solo escucha en 127.0.0.1. Se limita el CSV a 200 KB y 1.000 filas;
 se procesan cargas en memoria sin guardarlas como archivos del servidor.
 El esquema rechaza columnas extra, incluidas Target e identificadores; requiere
 al menos cinco registros. No se permiten categorias desconocidas ni filas con
@@ -170,5 +170,14 @@ autenticacion institucional ni contacto automatico con estudiantes.
 El modelo se carga desde un artefacto confiable y se comprueba su huella antes
 de cada inferencia. El servidor aplica limite de peticion, Host permitido,
 control de origen, CSP y cabeceras de seguridad. Estos controles son para una
-demostracion local, no sustituyen una evaluacion de seguridad para despliegue.
+demostracion academica, no sustituyen una evaluacion de seguridad institucional.
 El [manual](manual_usuario.md) documenta las pantallas y el contrato completo.
+
+## Ejecucion remota
+
+Render ejecuta app.wsgi con Gunicorn, un worker y dos threads, en el puerto
+asignado por PORT. El proveedor termina HTTPS; app/deployment.py admite solo
+el hostname asignado y verifica el origen publico. /health comprueba la
+integridad del artefacto. No hay entrenamiento al arrancar ni persistencia de
+lotes. El modelo y el preprocesamiento son los mismos que en modo local.
+Consultar [configuracion, limites y pruebas](despliegue.md).

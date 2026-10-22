@@ -63,7 +63,9 @@ repetirse con python -m src.benchmark_app usando solo filas de desarrollo.
 Estas pruebas no certifican seguridad productiva, accesibilidad integral,
 equidad, validez en Ecuador ni cumplimiento juridico. No se realizaron
 ensayos de carga concurrente ni evaluacion de usabilidad con tutores.
-La aplicacion entregada es local; no hay alojamiento publico de Flask.
+En esta verificacion del 21/10 la aplicacion era local. El 22/10 se incorporo
+el [despliegue publico y su verificacion independiente](despliegue.md).
+Los conteos anteriores corresponden a la version historica de esta prueba.
 
 La version tecnica no incluye videos. El pitch y las respuestas asignadas
 son entregables adicionales cuyos enlaces deben incorporarse al README

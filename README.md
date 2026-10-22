@@ -2,11 +2,19 @@
 
 ![Python 3.11](https://img.shields.io/badge/Python-3.11-3776AB)
 [![Licencia MIT](https://img.shields.io/badge/Licencia-MIT-526340)](LICENSE)
-![Modalidad local](https://img.shields.io/badge/Demo-local-555555)
+[![Demo publica](https://img.shields.io/badge/Demo-Render-526340)](https://alerta-temprana-abandono-estudiantil.onrender.com)
 
 Prototipo académico de inteligencia artificial para identificar estudiantes que podrían necesitar apoyo para continuar sus estudios, usando información disponible al momento de la matrícula.
 
 **Autor:** Carlos Zambrano Figueroa. **Grupo:** 11, trabajo individual.
+
+## Aplicación pública
+
+[Abrir la aplicación](https://alerta-temprana-abandono-estudiantil.onrender.com).
+No requiere instalar Python ni iniciar sesión. El plan gratuito puede tardar
+alrededor de un minuto en reactivarse tras un periodo de inactividad.
+Usar únicamente datos públicos o sintéticos: los CSV se procesan en Render.
+[Configuración y verificación remota](docs/despliegue.md).
 
 ## Aplicación local
 
@@ -58,7 +66,7 @@ results/metrics/       Métricas verificables
 results/reports/       Reportes derivados
 ```
 
-Los experimentos, el artefacto, la evaluación final y la aplicación local están implementados, con 93 pruebas Python y un recorrido automatizado de navegador. Los cinco notebooks están ejecutados. La interfaz usa el modelo fijo, sin entrenar con los archivos cargados.
+Los experimentos, el artefacto, la evaluación final y la aplicación están implementados, con 99 pruebas Python y un recorrido automatizado de navegador. Los cinco notebooks están ejecutados. La interfaz usa el modelo fijo, sin entrenar con los archivos cargados.
 
 ## Documentación
 
@@ -133,7 +141,7 @@ python -m venv .venv
 
 En otros sistemas usar `.venv/bin/python`. La auditoría genera `results/metrics/data_audit.json`. El EDA genera `results/metrics/eda.json`, siete figuras y `docs/analisis_datos.md`; editar la plantilla en `src/eda.py` si se modifica esa documentación. La auditoría de preprocesamiento genera `results/metrics/preprocessing_audit.json`. El entrenamiento guarda predicciones OOF, registros y métricas en `results/metrics/baseline_*`; el reporte y sus tres gráficos se generan con `src.baseline_report`.
 
-La optimización genera `results/metrics/optimization_*`; `src.optimization_report` genera cinco figuras y la sección de resultados de `docs/optimizacion.md`. La auditoría genera `results/metrics/fairness_*` y su reporte. La robustez genera `results/metrics/stress_*`, un gráfico y los resultados en `docs/robustez.md`. Las 93 pruebas cubren también el artefacto, la evaluación final y los controles de la aplicación; no certifican seguridad ni validez institucional. Los resultados de desarrollo se regeneran con `src.train`, `src.optimize`, `src.fairness` y `src.stress`. `src.finalize` verifica el modelo existente sin sobrescribirlo. `src.final_evaluation` verifica la prueba guardada; no vuelve a predecir si ya existe.
+La optimización genera `results/metrics/optimization_*`; `src.optimization_report` genera cinco figuras y la sección de resultados de `docs/optimizacion.md`. La auditoría genera `results/metrics/fairness_*` y su reporte. La robustez genera `results/metrics/stress_*`, un gráfico y los resultados en `docs/robustez.md`. Las 99 pruebas cubren también el artefacto, la evaluación final y los controles de la aplicación; no certifican seguridad ni validez institucional. Los resultados de desarrollo se regeneran con `src.train`, `src.optimize`, `src.fairness` y `src.stress`. `src.finalize` verifica el modelo existente sin sobrescribirlo. `src.final_evaluation` verifica la prueba guardada; no vuelve a predecir si ya existe.
 
 Los [tres casos de demostración](data/examples/README.md) permiten mostrar un lote
 válido, una nota ausente admitida con advertencia y un código inválido rechazado.
@@ -193,8 +201,9 @@ exporta el ranking completo. Evidencia del modelo presenta las metricas finales.
 Ver [manual con capturas y errores](docs/manual_usuario.md).
 
 La aplicacion se ejecuta en http://127.0.0.1:5057 en el equipo que la instala.
-No hay un servicio publico alojado: localhost no es un enlace para otros equipos.
-El evaluador puede clonar el repositorio y ejecutar la demo local documentada.
+Para acceder desde otros equipos, usar la
+[demo publica en Render](https://alerta-temprana-abandono-estudiantil.onrender.com).
+Localhost sigue siendo una alternativa de ejecucion en el equipo propio.
 
 ## Etica y limitaciones
 
