@@ -44,12 +44,33 @@ persistente de intervenciones.
 6. Vaciar el lote elimina sus resultados de la vista. Recargar la pagina vuelve
    a la muestra publica; la aplicacion no mantiene el archivo subido entre visitas.
 
-![Pantalla de priorizacion](images/app_desktop.png)
+![Pantalla anotada: carga, resumen, filtros, puntuacion y detalle](images/app_annotated.png)
+
+Referencias de la captura: **1**, carga del CSV; **2**, resumen del lote;
+**3**, filtros de visualizacion; **4**, escala de priorizacion;
+**5**, acceso al detalle de un caso. La descarga superior exporta todo el lote.
 
 En la captura: los tres conteos resumen el lote; las filas verdes pertenecen
 al cupo; las flechas abren el detalle. La puntuacion es una salida del modelo
 entre 0 y 1, **no una probabilidad calibrada**. Estar fuera del cupo no descarta
 necesidad de apoyo; debe existir una via abierta de solicitud independiente.
+
+### Como interpretar las puntuaciones
+
+La columna Puntuacion para priorizar muestra la salida de abandono: los valores
+mas altos se revisan primero. Por ejemplo, 0,700 no demuestra que esa persona
+tenga un 70% de probabilidad de abandonar. Las tres salidas del detalle suman
+aproximadamente 1 y representan la asociacion aprendida por el modelo con cada
+resultado; no son probabilidades cuya calibracion se haya comprobado.
+
+- Abandono: salida asociada a dejar los estudios.
+- Continuidad en estudios (Enrolled): seguir estudiando al cierre del seguimiento
+  del dataset, sin haber abandonado ni terminado. No equivale a estar inscrito
+  al inicio ni garantiza permanencia futura.
+- Graduacion: salida asociada a completar los estudios.
+
+La mayor puntuacion determina la clase predicha. Solo la puntuacion de abandono
+ordena la lista de revision; no determina quien merece recibir apoyo.
 
 ## Preparacion y carga de CSV
 
@@ -143,6 +164,23 @@ a estudiantes; las salvaguardas institucionales descritas son propuestas.
 
 ## Verificacion
 
+### Tiempo de procesamiento
+
+La medicion registrada con Python 3.11.8 en Windows, CPU AMD64 Family 25
+Model 68, utiliza las primeras 1.000 filas de desarrollo, diez solicitudes
+y una ejecucion de calentamiento. La mediana fue **0,11196 segundos**,
+aproximadamente 8.932 registros/s en ese ensayo. Se cumple la meta tecnica
+de cinco segundos bajo estas condiciones, no como garantia en otros equipos.
+
+El cliente de pruebas Flask mide lectura CSV, validacion, inferencia y
+serializacion JSON, sin red ni renderizado del navegador. No utiliza la
+reserva final, no mide F1 ni equivale a un ensayo de concurrencia.
+El [registro de tiempos](../results/metrics/app_benchmark.json) incluye las
+diez mediciones y la huella del modelo. Para repetir: python -m src.benchmark_app.
+Cada ejecucion sustituye ese registro de rendimiento, nunca las metricas finales.
+
+### Comprobaciones funcionales
+
 93 pruebas Python y un recorrido de navegador con Playwright comprueban muestra,
 carga valida, rechazo de errores, concordancia con el modelo, filtros, paginacion,
 detalle, descarga, evidencia y ausencia de desbordamiento de pagina en movil.
@@ -159,7 +197,33 @@ Permite APP_URL y BROWSER_CHANNEL para cambiar direccion o navegador compatible.
 Las capturas de este manual proceden de ese recorrido. Para incidencias tecnicas
 del prototipo, registrar un issue en el repositorio sin adjuntar datos personales.
 
-## Tres casos para la grabacion
+## Preguntas frecuentes y soporte
+
+**Por que no son porcentajes?** Son salidas del clasificador en escala 0-1;
+no se ha demostrado que esten calibradas como riesgos individuales.
+
+**Estar fuera de la lista significa que no necesito apoyo?** No. La lista
+tiene un cupo fijo; deben existir otras vias de solicitud de acompanamiento.
+
+**Puedo usar estudiantes reales de mi universidad?** No en esta demostracion.
+Solo se admiten datos publicos o sinteticos; se necesita validacion y
+gobernanza institucional antes de otro uso.
+
+**Por que la clase y la prioridad no coinciden?** La clase es el resultado de
+mayor puntuacion entre tres salidas. El ranking usa solo abandono y depende
+del resto del lote; no aplica un umbral de riesgo individual.
+
+**Puede abrirla otra persona con mi enlace localhost?** No. Debe instalar su
+propia copia. No existe alojamiento publico del servicio; GitHub publica
+el codigo y la evidencia, no ejecuta esta aplicacion Flask.
+
+Soporte del prototipo: Carlos Zambrano Figueroa, Grupo 11, mediante
+[incidencias del repositorio](https://github.com/eduzamf/alerta-temprana-abandono-estudiantil/issues).
+Incluir sistema operativo, version de Python, comando y mensaje de error.
+No adjuntar credenciales, registros personales ni capturas con personas
+identificables. No hay un servicio institucional ni tiempo de respuesta garantizado.
+
+## Tres casos de demostracion
 
 Los archivos estan en [data/examples](../data/examples/README.md) y en los enlaces
 de Casos de demostracion de Datos de entrada. Se reproducen con

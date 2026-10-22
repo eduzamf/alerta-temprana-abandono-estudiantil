@@ -1,0 +1,27 @@
+{
+  "scope": "Flask test client: parsing, validation, inference and JSON; no network or browser",
+  "input": "first 1000 development rows; not independent evaluation",
+  "rows": 1000,
+  "repetitions": 10,
+  "warmups": 1,
+  "python": "3.11.8",
+  "platform": "Windows-10-10.0.26300-SP0",
+  "processor": "AMD64 Family 25 Model 68 Stepping 1, AuthenticAMD",
+  "model_sha256": "028b9d7071eaa9549b2cfb64f177f34d2aaf5aeb645eb1f7b4af63b746d8c5f1",
+  "seconds": [
+    0.11436899999898742,
+    0.11164750000170898,
+    0.11236019999705604,
+    0.1572922000013932,
+    0.11145979999855626,
+    0.11139149999871734,
+    0.10905030000139959,
+    0.11886429999867687,
+    0.11225810000178171,
+    0.11166059999959543
+  ],
+  "median_seconds": 0.11195935000068857,
+  "records_per_second": 8931.813198217476,
+  "target_seconds": 5,
+  "target_met": true
+}

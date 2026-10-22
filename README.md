@@ -1,5 +1,9 @@
 # Alerta temprana de abandono estudiantil
 
+![Python 3.11](https://img.shields.io/badge/Python-3.11-3776AB)
+[![Licencia MIT](https://img.shields.io/badge/Licencia-MIT-526340)](LICENSE)
+![Modalidad local](https://img.shields.io/badge/Demo-local-555555)
+
 Prototipo académico de inteligencia artificial para identificar estudiantes que podrían necesitar apoyo para continuar sus estudios, usando información disponible al momento de la matrícula.
 
 **Autor:** Carlos Zambrano Figueroa. **Grupo:** 11, trabajo individual.
@@ -25,8 +29,13 @@ No guarda archivos cargados y no debe recibir datos personales reales.
 - [Estructura](#estructura)
 - [Documentación](#documentación)
 - [Datos y resultados](#datos-y-resultados)
+- [Metodologia](#metodologia)
+- [Interfaz](#interfaz)
+- [Etica y limitaciones](#etica-y-limitaciones)
 - [Instalación y pruebas](#instalación-y-pruebas)
+- [Autor y contribuciones](#autor-y-contribuciones)
 - [Licencias](#licencias)
+- [Referencias](#referencias)
 - [Videos](#videos)
 
 ## Problema y alcance
@@ -49,7 +58,7 @@ results/metrics/       Métricas verificables
 results/reports/       Reportes derivados
 ```
 
-Los archivos `.gitkeep` permiten registrar carpetas inicialmente vacías. Los experimentos, el artefacto, la evaluación final y la aplicación local están implementados, con 93 pruebas Python y un recorrido automatizado de navegador. Los cinco notebooks están ejecutados. La interfaz usa el modelo fijo, sin entrenar con los archivos cargados.
+Los experimentos, el artefacto, la evaluación final y la aplicación local están implementados, con 93 pruebas Python y un recorrido automatizado de navegador. Los cinco notebooks están ejecutados. La interfaz usa el modelo fijo, sin entrenar con los archivos cargados.
 
 ## Documentación
 
@@ -78,6 +87,20 @@ En la [prueba final](docs/evaluacion_final.md), LR obtiene F1 macro 0,49366 y ac
 El [artefacto entrenado](models/README.md) conserva el pipeline completo y metadatos verificables. Se ajustó exclusivamente con las 3.539 filas de desarrollo; sus puntuaciones no están calibradas.
 
 ## Instalación y pruebas
+
+Requisitos de uso: Python 3.11, CPU y navegador actualizado. No se requiere
+GPU ni Node para ejecutar la app. Windows fue el entorno comprobado; las
+instrucciones POSIX se ofrecen como equivalencia, no como prueba en Linux.
+Para la demo basta instalar requirements.txt y ejecutar app.app; no hace falta
+repetir todas las busquedas. La evaluacion guardada no se usa para reajustar.
+
+```powershell
+git clone https://github.com/eduzamf/alerta-temprana-abandono-estudiantil.git
+cd alerta-temprana-abandono-estudiantil
+python -m venv .venv
+.\.venv\Scripts\python.exe -m pip install -r requirements.txt
+.\.venv\Scripts\python.exe -m app.app --port 5057
+```
 
 Las [pruebas de robustez](docs/robustez.md) incluyen nueve escenarios y 85 evaluaciones de validación. La regresión excede la tolerancia de caída de F1 al ocultar cerca del 30% de las celdas, usar carreras desconocidas o desplazar las notas. No se modificaron las tolerancias después de observar resultados.
 
@@ -128,11 +151,79 @@ No cargar datos personales reales ni credenciales en este repositorio público.
 
 ## Licencias
 
-La licencia del código está pendiente de decisión del autor; no se concede aquí una licencia de reutilización. Se incorporará `LICENSE` cuando se elija. Los datos tienen licencia y atribución documentadas en data/README.md. Los iconos Lucide conservan su licencia de terceros en app/assets/lucide-LICENSE.txt.
+El codigo y la documentacion original se publican bajo [MIT](LICENSE), sin
+garantia. Los datos UCI conservan [CC BY 4.0 y su atribucion](data/README.md);
+MIT no sustituye esa licencia ni la de dependencias. Los iconos Lucide
+conservan [su licencia](app/assets/lucide-LICENSE.txt). La licencia de
+reutilizacion no certifica aptitud del sistema para decisiones educativas.
+
+## Metodologia
+
+Se excluyen variables semestrales y de temporalidad incierta. Cada fold aprende
+imputacion mediana/moda, escalado de cuatro variables numericas y one-hot de
+14 categorias. Se comparan Dummy, LR y RF; la optimizacion usa tres folds
+internos dentro de cinco externos. RF reduce capacidad y LR incorpora
+terminos cuadraticos. Ninguna variante demuestra una mejora concluyente:
+se conserva LR original por complejidad, trazabilidad y evidencia disponible.
+
+| Modelo | Evaluacion | F1 macro | Cobertura al 20% |
+|---|---|---:|---:|
+| Dummy prior | Media de validacion | 0,22201 | Ver reporte de referencias |
+| LR original | Media de validacion | 0,51584 | 39,75% |
+| RF original | Media de validacion | 0,51996 | 39,14% |
+| LR cuadratica | Validacion externa anidada | 0,51777 | 40,28% |
+| RF regularizado | Validacion externa anidada | 0,51792 | 39,67% |
+| LR original congelada | Prueba final, 885 casos | **0,49366** | **40,14%** |
+
+Las comparaciones entre candidatos corresponden a desarrollo; no se evaluaron
+todos en prueba para escoger al ganador. F1 macro pondera por igual las tres
+clases. La cobertura mide abandonos recuperados en el cupo, no eficacia de apoyo.
+La meta F1 0,60 no se alcanza. La accuracy final es 0,52881.
+
+## Interfaz
+
+![Aplicacion local con ranking](docs/images/app_desktop.png)
+
+Cargar muestra UCI muestra 40 casos publicos de desarrollo y prioriza ocho.
+Datos de entrada ofrece plantilla y ejemplos. Analizar CSV valida y aplica el
+modelo fijo; la flecha abre clase estimada, puntuaciones y entradas. Descargar
+exporta el ranking completo. Evidencia del modelo presenta las metricas finales.
+Ver [manual con capturas y errores](docs/manual_usuario.md).
+
+La aplicacion se ejecuta en http://127.0.0.1:5057 en el equipo que la instala.
+No hay un servicio publico alojado: localhost no es un enlace para otros equipos.
+El evaluador puede clonar el repositorio y ejecutar la demo local documentada.
+
+## Etica y limitaciones
+
+Uso academico con datos publicos/sinteticos, revision humana y apoyo voluntario.
+No usar para sanciones, admisiones o asignacion automatica de beneficios.
+Se rechazan identificadores adicionales y no se guardan los lotes en el servidor.
+La auditoria muestra coberturas desiguales; no se certifica equidad, calibracion,
+transferencia a Ecuador ni cumplimiento juridico institucional.
+Ver [riesgos, controles, LOPDP y monitoreo propuesto](docs/consideraciones_eticas.md).
+
+## Autor y contribuciones
+
+Carlos Zambrano Figueroa, Grupo 11, modalidad individual: definicion del alcance,
+decisiones metodologicas, analisis, integracion y revision de la entrega.
+Se emplearon herramientas de IA como apoyo en programacion, redaccion y
+verificacion. Las metricas proceden de ejecuciones y predicciones conservadas,
+no de estimaciones generadas. El apoyo no sustituye la responsabilidad
+academica del autor ni constituye revision por expertos educativos.
+
+## Referencias
+
+- Realinho, Vieira Martins, Machado y Baptista (2021). [Dataset UCI 697](https://doi.org/10.24432/C5MC89).
+- [scikit-learn: documentacion oficial](https://scikit-learn.org/stable/). Version utilizada: 1.6.1.
+- [Flask: documentacion oficial](https://flask.palletsprojects.com/). Version utilizada: 3.1.2.
+- [Lucide y atribucion de recursos](app/assets/THIRD_PARTY.md).
+- Agradecimiento a la docente por la retroalimentacion metodologica y etica.
+  Su evaluacion academica no implica aval institucional de uso.
 
 ## Videos
 
-- Pitch de máximo 5 minutos: pendiente.
-- Respuestas a las preguntas de la profesora: pendiente.
-
-Los enlaces se agregarán cuando existan las grabaciones reales.
+La entrega audiovisual comprende el pitch (maximo cinco minutos) y las
+respuestas a preguntas asignadas por la profesora. Las grabaciones y sus
+enlaces se incorporaran tras su realizacion; no forman parte de esta version
+tecnica ni se presentan enlaces ficticios.

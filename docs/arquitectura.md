@@ -1,6 +1,6 @@
 # Arquitectura del sistema
 
-Estado: carga, preprocesamiento, modelos base y optimizacion anidada implementados y auditados.
+Carga, preprocesamiento, modelos base y optimizacion anidada implementados y auditados.
 El clasificador seleccionado es LR_base; su pipeline entrenado esta en
 `models/student_support_v1.joblib`. La aplicacion local se integra mediante Flask.
 
@@ -35,7 +35,7 @@ Target, indicadores semestrales y variables reservadas para auditoria.
 
 Los codigos nominales se conservan como numeros al cargar, pero se tratan como
 categorias. Esta validacion no comprueba todos los codigos o rangos del dominio;
-esas validaciones deberan completarse en la interfaz.
+la interfaz las aplica mediante src/inference.py antes de la inferencia.
 
 | Rama | Variables | Imputacion | Transformacion |
 |---|---|---|---|
@@ -78,7 +78,7 @@ Las pruebas automatizadas incluyen entradas invalidas, faltantes sinteticos,
 categorias nuevas, clonacion independiente y ausencia de reajuste con valores
 extremos en validacion. No son pruebas de rendimiento de clasificadores.
 
-## Integracion prevista
+## Integracion del entrenamiento
 
 Los modelos base ya se integran con el preprocesamiento en un Pipeline en
 `src/model.py`. El entrenamiento por folds se ejecuta mediante `src/train.py`.
@@ -123,11 +123,11 @@ Utiliza la reserva historica sin reajustar el pipeline. Conserva predicciones
 y recalcula metricas desde esos archivos en ejecuciones posteriores.
 Los resultados se presentan en [evaluacion final](evaluacion_final.md).
 
-El clasificador seleccionado y este transformador se mantendran en un Pipeline para
-que cada ajuste interno de hiperparametros vuelva a aprender el preprocesamiento
-solo con su entrenamiento. No se hara validacion cruzada sobre matrices ajustadas
-con todo desarrollo. El entrenamiento definitivo se realizara despues de fijar
-el modelo y protocolo; esa fase ya se ejecuto y la reserva se evaluo sin reajustar con ella.
+El clasificador y su transformador se conservaron en un Pipeline: cada ajuste
+interno aprendio el preprocesamiento solo con su entrenamiento. No se hizo
+validacion cruzada sobre matrices ajustadas con todo desarrollo. El artefacto
+definitivo se entreno despues de fijar modelo y protocolo; la reserva se
+evaluo sin reajustar con ella.
 
 Las versiones verificadas se fijan en [requirements.txt](../requirements.txt).
 La persistencia se implementa en `src/finalize.py`: entrena exclusivamente en

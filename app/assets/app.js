@@ -14,7 +14,7 @@ const labels = {
   "Gender": "Género (código)", "Age at enrollment": "Edad al matricularse",
   "International": "Estudiante internacional"
 };
-const classLabels = {Dropout: "Abandono", Enrolled: "Matriculado/a", Graduate: "Graduación"};
+const classLabels = {Dropout: "Abandono", Enrolled: "Continuidad en estudios", Graduate: "Graduación"};
 function icons() { if (window.lucide) lucide.createIcons(); }
 function node(tag, text, className) {
   const element = document.createElement(tag);

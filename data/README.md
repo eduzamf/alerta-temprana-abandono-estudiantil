@@ -41,7 +41,7 @@ y = development["Target"]
 
 La lista explicita contiene 18 predictores de matricula. Se excluyen los 12 indicadores semestrales y seis variables de temporalidad no confirmada: deuda, pagos al dia, beca y los tres indicadores economicos. El frame conserva columnas adicionales para auditoria; no pasarlo completo al modelo. Beca y deuda pueden estudiarse retrospectivamente sin convertirlas en predictores.
 
-Se mantiene el orden historico de desarrollo para preservar los desempates de rankings. Las etiquetas originales solo se usan para verificar la particion historica; no se calculan predicciones, rendimiento ni estadisticas de variables de la reserva. El cargador es una barrera de procedimiento, no control de acceso: el CSV publico contiene todas las filas. La evaluacion de la reserva se realizara despues de fijar modelo y protocolo.
+Se mantiene el orden historico de desarrollo para preservar los desempates de rankings. El cargador de desarrollo usa las etiquetas originales para verificar la particion, sin evaluar la reserva. Es una barrera de procedimiento, no control de acceso: el CSV publico contiene todas las filas. La reserva se evaluo posteriormente con el modelo fijo mediante src.final_evaluation; sus resultados estan separados de los experimentos de desarrollo y ya no puede reutilizarse para ajustar.
 
 Enrolled es un estado no resuelto al corte de observacion, no graduacion ni abandono confirmado. Los datos de una institucion portuguesa no demuestran validez local en Ecuador.
 

@@ -42,7 +42,8 @@ a elegir rangos en esta ejecucion. El modelo auxiliar no predice abandono.
 
 El protocolo se registro antes de ejecutar; los resultados se presentan a continuacion. Las pruebas de estres,
 calibracion, equidad, seleccion definitiva y evaluacion de reserva no forman
-parte de esta ejecucion y siguen pendientes.
+parte de esta ejecucion de optimizacion. La auditoria, robustez, seleccion y
+prueba final posteriores se documentan por separado; no se realizo calibracion.
 
 ## Resultados ejecutados
 
@@ -96,8 +97,9 @@ estrategias como una mejora concluyente ni declarar un ganador definitivo.
 
 Si un ganador esta en un extremo del rango explorado, no se afirma que sea un
 optimo global. No se ampliaron los rangos despues de observar la validacion
-externa. Aun falta fijar una familia y ajustar su configuracion de produccion
-sobre desarrollo con un protocolo documentado; no hay modelo final guardado.
+externa. La familia y el artefacto se fijaron despues en
+[seleccion del modelo](seleccion_modelo.md); este experimento no guarda
+un modelo final ni utiliza la prueba para elegirlo.
 
 ## Sensibilidad y dependencia parcial
 
@@ -135,7 +137,8 @@ El mayor F1 externo observado entre estas dos estrategias es
 La meta sigue siendo 0,60 y solo se declarara alcanzada si la evidencia lo
 respalda. No se interpreta una diferencia pequena como significacion estadistica.
 Los folds comparten datos de entrenamiento y la eleccion posterior de familia
-usa desarrollo; la estimacion confirmatoria requerira el protocolo final.
+usa desarrollo; la evaluacion posterior del artefacto fijo se documenta
+en [prueba final](evaluacion_final.md), sin reajuste.
 
 La [auditoria por subgrupos](../results/reports/fairness_report.md) evalua la
 regresion de referencia, no estas estrategias nuevas. Las [pruebas de robustez](robustez.md)
