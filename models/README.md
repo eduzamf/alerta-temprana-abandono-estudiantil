@@ -12,6 +12,12 @@ la misma huella anterior a la prueba.
 El artefacto no es un sistema institucional validado. Sus puntuaciones no
 estan calibradas y requiere los controles de entrada descritos en robustez.
 
+El archivo joblib cumple la funcion de modelo persistido de la estructura
+academica propuesta. No se duplican archivos con nombres best_model.pkl o
+model_v1.pkl: el unico artefacto seleccionado tiene version y huella explicitas.
+Las alternativas se conservan como configuraciones, predicciones y resultados,
+no como falsas versiones productivas del modelo.
+
 Para entrenar si no existe o verificar si ya existe:
 `python -m src.finalize`. La funcion de entrenamiento rechaza sobrescribir
 un artefacto congelado. Verificar no evalua la reserva.
