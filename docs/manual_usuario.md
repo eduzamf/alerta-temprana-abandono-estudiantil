@@ -191,7 +191,7 @@ Cada ejecucion sustituye ese registro de rendimiento, nunca las metricas finales
 
 ### Comprobaciones funcionales
 
-99 pruebas Python y un recorrido de navegador con Playwright comprueban muestra,
+101 pruebas Python y un recorrido de navegador con Playwright comprueban muestra,
 carga valida, rechazo de errores, concordancia con el modelo, filtros, paginacion,
 detalle, descarga, evidencia y ausencia de desbordamiento de pagina en movil.
 

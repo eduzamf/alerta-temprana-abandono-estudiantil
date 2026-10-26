@@ -4,6 +4,11 @@
 **Periodo:** seis semanas; cierre del modulo comunicado: 25/10/2026.
 **Corte de consolidacion:** 21/10/2026; no sustituye el plazo de los videos.
 
+**Actualizacion del plazo de entrega final:** en la clase de semana 6, la
+docente anuncio el viernes 30/10/2026. La hora de cierre corresponde a la
+configurada en el aula virtual. Esta ampliacion no cambia el periodo de
+desarrollo original ni las fechas de los experimentos.
+
 ## Problema, relevancia y usuarios
 
 Los equipos de tutoria y bienestar pueden tener menos capacidad de revision

@@ -175,6 +175,14 @@ El [manual](manual_usuario.md) documenta las pantallas y el contrato completo.
 
 ## Ejecucion remota
 
+La [auditoria de variables](../results/reports/feature_importance.md) reconstruye
+replicas de LR en desarrollo para medir importancia por permutacion en datos
+no usados al ajustar cada replica. No sustituye el artefacto ni vuelve a
+evaluar la prueba final. La modalidad de ingreso y la carrera encabezan la
+caida media de F1; estas asociaciones pueden reflejar diferencias de poblacion
+y contexto institucional, no causas ni una jerarquia universal de factores.
+Su interpretacion educativa debe validarse con especialistas y datos locales.
+
 Render ejecuta app.wsgi con Gunicorn, un worker y dos threads, en el puerto
 asignado por PORT. El proveedor termina HTTPS; app/deployment.py admite solo
 el hostname asignado y verifica el origen publico. /health comprueba la

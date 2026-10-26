@@ -66,7 +66,7 @@ results/metrics/       Métricas verificables
 results/reports/       Reportes derivados
 ```
 
-Los experimentos, el artefacto, la evaluación final y la aplicación están implementados, con 99 pruebas Python y un recorrido automatizado de navegador. Los cinco notebooks están ejecutados. La interfaz usa el modelo fijo, sin entrenar con los archivos cargados.
+Los experimentos, el artefacto, la evaluación final y la aplicación están implementados, con 101 pruebas Python y un recorrido automatizado de navegador. Los cinco notebooks están ejecutados. La interfaz usa el modelo fijo, sin entrenar con los archivos cargados.
 
 ## Documentación
 
@@ -81,6 +81,8 @@ Los experimentos, el artefacto, la evaluación final y la aplicación están imp
 - [Manual de usuario](docs/manual_usuario.md)
 - [Verificacion desde una copia limpia](docs/verificacion_tecnica.md)
 - [Despliegue remoto y controles](docs/despliegue.md)
+- [Importancia descriptiva de variables](results/reports/feature_importance.md)
+- [Evidencia para la defensa tecnica](docs/evidencia_defensa.md)
 
 ## Datos y resultados
 
@@ -95,6 +97,12 @@ Los modelos base reproducen los resultados históricos: F1 macro medio de 0,5158
 En la [prueba final](docs/evaluacion_final.md), LR obtiene F1 macro 0,49366 y accuracy 0,52881. El ranking prioriza 177 casos e incluye 114 de 284 abandonos (40,14%). Se conservan 170 abandonos fuera del cupo. No se ajustó el modelo después de observar el resultado. Los documentos de experimentos anteriores describen el estado de la reserva en esas etapas; sus métricas siguen siendo de desarrollo.
 
 El [artefacto entrenado](models/README.md) conserva el pipeline completo y metadatos verificables. Se ajustó exclusivamente con las 3.539 filas de desarrollo; sus puntuaciones no están calibradas.
+
+La [auditoria de variables](results/reports/feature_importance.md) mide la caida
+de F1 al permutar entradas en los cinco folds de validacion de LR. Modalidad
+de ingreso y carrera muestran la mayor dependencia predictiva media. Es un
+analisis descriptivo posterior, no una explicacion causal ni una nueva seleccion
+de variables. El modelo publicado y la evaluacion final permanecen sin cambios.
 
 ## Instalación y pruebas
 
@@ -141,7 +149,7 @@ python -m venv .venv
 
 En otros sistemas usar `.venv/bin/python`. La auditoría genera `results/metrics/data_audit.json`. El EDA genera `results/metrics/eda.json`, siete figuras y `docs/analisis_datos.md`; editar la plantilla en `src/eda.py` si se modifica esa documentación. La auditoría de preprocesamiento genera `results/metrics/preprocessing_audit.json`. El entrenamiento guarda predicciones OOF, registros y métricas en `results/metrics/baseline_*`; el reporte y sus tres gráficos se generan con `src.baseline_report`.
 
-La optimización genera `results/metrics/optimization_*`; `src.optimization_report` genera cinco figuras y la sección de resultados de `docs/optimizacion.md`. La auditoría genera `results/metrics/fairness_*` y su reporte. La robustez genera `results/metrics/stress_*`, un gráfico y los resultados en `docs/robustez.md`. Las 99 pruebas cubren también el artefacto, la evaluación final y los controles de la aplicación; no certifican seguridad ni validez institucional. Los resultados de desarrollo se regeneran con `src.train`, `src.optimize`, `src.fairness` y `src.stress`. `src.finalize` verifica el modelo existente sin sobrescribirlo. `src.final_evaluation` verifica la prueba guardada; no vuelve a predecir si ya existe.
+La optimización genera `results/metrics/optimization_*`; `src.optimization_report` genera cinco figuras y la sección de resultados de `docs/optimizacion.md`. La auditoría genera `results/metrics/fairness_*` y su reporte. La robustez genera `results/metrics/stress_*`, un gráfico y los resultados en `docs/robustez.md`. Las 101 pruebas cubren también el artefacto, la evaluación final y los controles de la aplicación; no certifican seguridad ni validez institucional. Los resultados de desarrollo se regeneran con `src.train`, `src.optimize`, `src.fairness` y `src.stress`. `src.finalize` verifica el modelo existente sin sobrescribirlo. `src.final_evaluation` verifica la prueba guardada; no vuelve a predecir si ya existe.
 
 Los [tres casos de demostración](data/examples/README.md) permiten mostrar un lote
 válido, una nota ausente admitida con advertencia y un código inválido rechazado.
@@ -234,7 +242,8 @@ academica del autor ni constituye revision por expertos educativos.
 
 ## Videos
 
-La entrega audiovisual comprende el pitch (maximo cinco minutos) y las
-respuestas a preguntas asignadas por la profesora. Las grabaciones y sus
+La entrega audiovisual comprende el pitch (maximo cinco minutos) y el video
+de defensa individual con las diez preguntas, en orden y en camara, con un
+maximo de dos minutos por respuesta. Las grabaciones y sus
 enlaces se incorporaran tras su realizacion; no forman parte de esta version
 tecnica ni se presentan enlaces ficticios.
