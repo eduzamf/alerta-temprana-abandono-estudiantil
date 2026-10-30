@@ -242,8 +242,12 @@ academica del autor ni constituye revision por expertos educativos.
 
 ## Videos
 
-La entrega audiovisual comprende el pitch (maximo cinco minutos) y el video
-de defensa individual con las diez preguntas, en orden y en camara, con un
-maximo de dos minutos por respuesta. Las grabaciones y sus
-enlaces se incorporaran tras su realizacion; no forman parte de esta version
-tecnica ni se presentan enlaces ficticios.
+Las grabaciones de la presentación y la defensa individual están disponibles
+en Google Drive:
+
+| Video | Contenido |
+|---|---|
+| [Video pitch: presentación del proyecto](https://drive.google.com/file/d/1JBkbO1acKO1o-KWNSNP-4Djh4eoxe11d/view) | Problema, metodología, resultados y demostración de la aplicación. |
+| [Video de preguntas y respuestas](https://drive.google.com/file/d/1TiBkeojD9SIk4nZ_QWGFn36hJ6beKyDK/view) | Defensa de las decisiones técnicas y respuestas a las diez preguntas. |
+
+[Carpeta compartida con ambos videos](https://drive.google.com/drive/folders/1dGYCjDs1ZYatd-jxEJg9Vt5KYFCQxPJs?usp=sharing).

@@ -67,6 +67,5 @@ En esta verificacion del 21/10 la aplicacion era local. El 22/10 se incorporo
 el [despliegue publico y su verificacion independiente](despliegue.md).
 Los conteos anteriores corresponden a la version historica de esta prueba.
 
-La version tecnica no incluye videos. El pitch y las respuestas asignadas
-son entregables adicionales cuyos enlaces deben incorporarse al README
-cuando existan las grabaciones reales.
+Las grabaciones del pitch y de la defensa individual se alojan en Google Drive.
+Sus enlaces están disponibles en la [sección de videos del README](../README.md#videos).
